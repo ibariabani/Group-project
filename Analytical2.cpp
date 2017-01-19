@@ -9,7 +9,7 @@ int main()
 {
   double x, y, V, b = 3, r, d = 1, theta, R = 0.5, V_0;
   
-  cout << "Enter the initial potential, V_0:" << endl;
+  cout << "Enter V_0:" << endl;
   cin >> V_0;
   
   ofstream file;
