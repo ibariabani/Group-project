@@ -37,13 +37,15 @@ int main() {
   double a,b,c,d,e; //equation coefficients
 
   //rho Jacobi, it's an important parameter of the SOR (and what makes it actually work better than other methods) but a pain to calculate, so I set a random value
-  double r_jac=0.1;
+  //for the numerical problem we have to solve, 0.98 seems to be very good
+  double r_jac=0.98;
   
   //matrices used for the potential and charge density
   double u[J+1][L+1];
-  double rho[J][L]; //currently not used and probably wont, so set to 0
 
-  double error = 1e-3; //error tolerance of the method: supposed to stop the program when accurate enough but not yet implemented
+  double reduct = 1e-4; //error tolerance of the method: stops the program when accurate enough
+  cout << "error reduction: " << reduct << endl;
+  double error, error0;
 
   double MAXITS=10000; //maximal number of iterations
 
@@ -86,6 +88,7 @@ int main() {
   
   //performs the SOR computation
   for (int n=1; n<=MAXITS; n++) { //number of total iterations
+    error=0;
     for (int OE=0; OE<=1; OE++) { //divides each iterations in two half-steps, one with odd points, the other with even point (cf: Numerical recipes p892 for info)
 
       //calculate omega, changes with each half-step
@@ -105,12 +108,18 @@ int main() {
 	  y = delta*l + ymin;
 	  r = sqrt(x*x+y*y);
 	  if (bound(x,y,delta) == 3) { //if point is outwith any defined boundary zone
-	    resid = a*u[j+1][l] + b*u[j-1][l] + c*u[j][l+1] + d*u[j][l-1] + e*u[j][l] - delta*delta*rho[j][l]; //residual, comes from some equations somewhere, used for SOR method and error calculation
+	    resid = a*u[j+1][l] + b*u[j-1][l] + c*u[j][l+1] + d*u[j][l-1] + e*u[j][l]; //residual, comes from some equations somewhere, used for SOR method and error calculation
 	    u[j][l] -= omega*resid/e; //calculates the updated u(j,l) using omega and resid
-	    error += fabs(resid); //error calculation, not used yet
+	    error += fabs(resid); //error calculation
 	  }
 	}
       }	
+    }
+    if (n == 1)
+      error0 = error;
+    if (error < error0*reduct) {
+      cout << "iterations: " << n << endl;
+      n = MAXITS+1;
     }
   }
 
