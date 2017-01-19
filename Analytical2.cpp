@@ -7,7 +7,7 @@ using namespace std;
 
 int main()
 {
-  double x, y, V, b = 3, r, d = 1, theta, R = 0.5, V_0;
+  double x = 0, y = 0, V = 0, b = 3, r = 0, d = 1, theta = 0, R = 0.5, V_0 = 0;
   
   cout << "Enter V_0:" << endl;
   cin >> V_0;
