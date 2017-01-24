@@ -1,36 +1,31 @@
-#include <iostream>
-#include <cmath>
-#include <fstream>
+#include "Analytical1.h"
 
 
 using namespace std;
 
-int main()
+void Analytical1(double& a,double& b, double& V0, double& delta)
 {
 
-double a=0.5, b=1, V, x, y, r, V_0, i, j;
+  double x=0, y=0, r=0, i=0, V=0, j=0,Xit=0;
 
-
-cout << "Enter the initial potential, V_0" << endl;
-cin >> V_0;
-
+  Xit=(2*b)/delta;
+  
+  
 ofstream file;
 file.open("Analytical1.dat");
 
-for(i=-100; i<=100; i++){
-	
-	x = i/100;
+for(i=0; i<=Xit; i++){
+	for(j=0; j<=Xit; j++){
+	  
+	  x=(i-(Xit/2))*delta;       //Converts i and j to coordinates centered on inner spheres centre.
+	  y=(j-(Xit/2))*delta;
 
-	for(j=-100; j<=100; j++){
+	  r = sqrt(pow(x,2) + pow(y,2));
 
-	y = j/100;
-
-	r = sqrt(pow(x,2) + pow(y,2));
-
-	if( (r<=0.5 && r>=-0.5) || r>1 ){
+	if( (r>b || r<a)){
 		V=0;
 	}else{
-		V = ((V_0/log(b/a))*log(r)) - ((V_0*log(a))/(log(b/a)));
+		V = ((V0/log(b/a))*log(r)) - ((V0*log(a))/(log(b/a)));
 	}
 
 	file << x << "    " << y << "    " << r << "    " << V << endl;
@@ -39,9 +34,9 @@ for(i=-100; i<=100; i++){
 file<<"\n";
 
 }
-//cout << pot << endl;
+file.close();
 
 
-return 0;
+
 }
 
