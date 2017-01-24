@@ -1,45 +1,39 @@
-#include <iostream>
-#include <cmath>
-#include <fstream>
-#include <cstdlib>
+#include "Analytical2.h"
 
 using namespace std;
 
-int main()
+void Analytical2(double& a, double& V0, double& d)
 {
-  double x = 0, y = 0, V = 0, b = 3, r = 0, d = 1, theta = 0, R = 0.5, V_0 = 0;
-  
-  cout << "Enter V_0:" << endl;
-  cin >> V_0;
+  double V = 0, x = 0, y = 0, r = 0, theta = 0;
   
   ofstream file;
   file.open("Analytical2.dat");
 
-  for (x = -1; x <= 1; x = x+0.01)
+  for (x = -d/2; x <= d/2; x = x+0.01)
     {
             
-      for (y = -1; y <= 1; y = y+0.01)
+      for (y = -d/2; y <= d/2; y = y+0.01)
 	{
 	  r = sqrt(pow(x,2)+pow(y,2));
-	 
+
 	  if (x == 0)
 	    {
-	      V = V_0;
+	      V = V0;
 	    }
-	
-	  else if (x == 1)
+	  
+	  else if (x == d)
 	    {
-	      V = V_0;
+	      V = V0;
 	    }
 
-	  else if (R > r)
+	  else if (a > r)
 	    {
 	      V = 0;
 	    }
 	  
 	  else
 	    {
-	      V = -(V_0)*(x/r)*(r - (pow(R,3)/pow(r,2)));
+	      V = -(V0)*(x/r)*(r - (pow(a,3)/pow(r,2)));
 	      
 	      file << x << "    " << y << "    " << V << endl;
 	    }
@@ -49,6 +43,5 @@ int main()
   
   file.close();
   
-  return 0;
 }
   
