@@ -28,7 +28,7 @@ make
 if [ -e "Analytical2.dat" ]
 then
 gnuplot <<EOF
-set terminal postscript color eps
+set terminal postscript colo
 set output "Problem2.ps"
 set size square
 set title "Potential of system with grounded cylinder within parallel plates"
