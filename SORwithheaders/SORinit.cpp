@@ -6,8 +6,8 @@
    - returns 0 if (x,y) lies in the V=0 zone
    - returns 3 if (x,y) does not lie in any zone defined by the boundary conditions */
 void Initialiser::backMat(){
-  double R1 = 1;
-  double R2 = 2;
+  double R1 = 1.5;
+  double R2 = 3;
   double R3 = 0.2;
   for (int j=0; j<=J; j++) {
     x = delta*j + xmin;
