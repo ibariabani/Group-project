@@ -1,47 +1,52 @@
+
 #include "Analytical2.h"
+
 
 using namespace std;
 
-void Analytical2(double& a, double& V0, double& d)
-{
-  double V = 0, x = 0, y = 0, r = 0, theta = 0;
-  
-  ofstream file;
-  file.open("Analytical2.dat");
+void Analytical2(double& a, double& V0, double& d, double& delta){
 
-  for (x = -d/2; x <= d/2; x = x+0.01)
-    {
-            
-      for (y = -d/2; y <= d/2; y = y+0.01)
-	{
-	  r = sqrt(pow(x,2)+pow(y,2));
+double x=0, y=0, r=0, i=0, V=0, j=0,Xit=0;
+Xit=(d/delta);
 
-	  if (x == 0)
-	    {
-	      V = V0;
-	    }
+ 
+ofstream file;
+file.open("Analytical2.dat");
+
+for(i=0; i<=Xit; i++){
+	for(j=0; j<=Xit; j++){
 	  
-	  else if (x == d)
-	    {
-	      V = V0;
-	    }
+	  x=(i-(Xit/2))*delta;       //Converts i and j to coordinates centered on inner spheres centre.
+	  y=(j-(Xit/2))*delta;
+	  r = sqrt(pow(x,2) + pow(y,2));
 
-	  else if (a > r)
-	    {
-	      V = 0;
-	    }
+	  if(a>r){
+		V=0;
+	  }
+	  /*
+	  else if(i==0){
+	    V=V0;
+	  }
 	  
-	  else
-	    {
-	      V = -(V0)*(x/r)*(r - (pow(a,3)/pow(r,2)));
-	      
-	      file << x << "    " << y << "    " << V << endl;
-	    }
-	}
-      file << "\n";
-    }
-  
-  file.close();
-  
+	  else if(i==Xit){
+	    V=(-V0);
+	  }
+	  */
+	  else{
+	    V = -(V0)*(2*x/d)*(1 - (pow(a,3)/pow(r,3))); 
+	  }
+	 
+
+	file << x << "    " << y << "    " << V << endl;
+
 }
-  
+file<<"\n";
+
+}
+file.close();
+
+
+
+}
+
+

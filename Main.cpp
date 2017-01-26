@@ -3,9 +3,9 @@
 #include<cstdlib>
 #include<fstream>
 #include"Analytical2.h"
-#include"Jacobi2.h"
+#include"GS2.h"
 #include"Analytical1.h"
-#include"Jacobi1.h"
+#include"GS1.h"
 
 
 using namespace std;
@@ -35,14 +35,14 @@ int Problem2(){
       return 2;
     }
 
-  Jacobi2(a,V0,d,delta,TitMax);
-  Analytical2(a,V0,d);
+  GS2(a,V0,d,delta,TitMax);
+  Analytical2(a,V0,d,delta);
 
   return 0;
 }
 
 int Problem1(){
-  cout<<"This program runs a Jacobi simulation of the potential in a concentric sphere and compares it to the analytical."<<endl;
+  cout<<"This program runs a Jacobi and Gauss-Siedel simulation of the potential in a concentric sphere and compares it to the analytical."<<endl;
 cout<< "Please enter the radius of the inner sphere"<<endl;
 cin>>a;
 cout<< "Please enter the radius of the outer sphere"<<endl;
@@ -54,7 +54,7 @@ cin>>delta;
 cout<<"How many times do you want the simulation to iterate"<<endl;
 cin>>TitMax;
 
- Jacobi1(a,b,V0,delta,TitMax);
+ GS1(a,b,V0,delta,TitMax);
  Analytical1(a,b,V0,delta);
 
  return 0;

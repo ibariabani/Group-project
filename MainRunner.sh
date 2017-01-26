@@ -5,9 +5,9 @@ then
 rm Analytical2.dat
 fi
 
-if [ -e "Jacobi2.dat" ]
+if [ -e "GS2.dat" ]
 then
-rm Jacobi2.dat
+rm GS2.dat
 fi
 
 if [ -e "Analytical1.dat" ]
@@ -15,9 +15,9 @@ then
 rm Analytical1.dat
 fi
 
-if [ -e "Jacobi1.dat" ]
+if [ -e "GS1.dat" ]
 then
-rm Jacobi1.dat
+rm GS1.dat
 fi
 
 make
@@ -28,7 +28,7 @@ make
 if [ -e "Analytical2.dat" ]
 then
 gnuplot <<EOF
-set terminal postscript colo
+set terminal postscript color
 set output "Problem2.ps"
 set size square
 set title "Potential of system with grounded cylinder within parallel plates"
@@ -36,7 +36,7 @@ set xlabel "x"
 set ylabel "y"
 set zlabel "z"
 set pm3d scansforward
-splot "Jacobi2.dat" using 1:2:3 with pm3d title "Jacobi"
+splot "GS2.dat" using 1:2:3 with pm3d title "Gauss-Siedel"
 splot "Analytical2.dat" using 1:2:3 with pm3d title "Analytical"
 EOF
 
@@ -52,14 +52,14 @@ set key off
 set output "Problem1.ps"
 set size square
 
-set title "Jacobi method to find potential"
+set title "Potential in concentric sphere"
 set xlabel "x"
 set ylabel "y"
 set zlabel "z"
 set pm3d scansforward
 set palette rgbformulae 30,31,32
 
-splot "Jacobi1.dat" using 1:2:3 with pm3d title "Jacobi"
+splot "GS1.dat" using 1:2:3 with pm3d title "Gauss-Siedel"
 splot "Analytical1.dat" using 1:2:4 with pm3d title "Analytical"
 
 EOF
