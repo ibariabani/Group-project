@@ -2,10 +2,12 @@
 #include"Gauss.h"
 #include"Jacobi.h"
 #include"BConds.h"
+#include"SOR.h"
 
 using namespace std;
 float Ug[10000][10000];         //Decalres all arrays required in other files with global scope
 float Uj[10000][10000];
+float Us[10000][10000];
 bool B[10000][10000]={false};
 
 int main(){
@@ -34,14 +36,14 @@ int main(){
     Gauss();
   }
 
-  /*
+  
   cout<<"Would you like to run the SOR  Method? Type Y for yes, any other key for no"<<endl;
   cin>>S;
  
   if (S=='Y'){
     SOR();
   }
-  */
+  
 
   return 0;
 }

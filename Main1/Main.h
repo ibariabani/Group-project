@@ -8,4 +8,5 @@ extern float Uj[10000][10000];     /*Declares these global variables as external
 extern float Ug[10000][10000];
 extern float delta,GS;
 extern bool B[10000][10000];
+extern float Us[10000][10000];
 

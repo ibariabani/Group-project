@@ -43,21 +43,25 @@ int BConds(){
        if(i==0){             //Sets the two plate values; Left plate =V0, Right plate=-V0
 	 Ug[i][j]=V0;
 	 Uj[i][j]=V0;
+	 Us[i][j]=V0;
 	 B[i][j]=true;
        }
        else if(i==ItMax){
 	 Ug[i][j]=-V0;
 	 Uj[i][j]=-V0;
+	 Us[i][j]=-V0;
 	 B[i][j]=true;
        }
        else if(a>r){
 	 Ug[i][j]=0;     //Sets all other values to 0
 	 Uj[i][j]=0;
+	 Us[i][j]=0;
 	 B[i][j]=true;
 	 }
        else{
 	 Ug[i][j]=0;
 	 Uj[i][j]=0;
+	 Us[i][j]=0;
 	 B[i][j]=false;
        }
      }

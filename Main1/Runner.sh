@@ -10,6 +10,11 @@ then
 rm Jacobi.dat
 fi
 
+if [ -e "SOR.dat" ]
+then
+rm SOR.dat
+fi
+
 make                    # Makes the main program using the makefile
 
 ./Main                  #Runs the main function
@@ -59,5 +64,31 @@ ps2pdf14 Jacobi.ps     #Converts output to pdf
 rm -rf Jacobi.ps       #Removes the PS file
 rm Jacobi.dat          #Removes the data file
 fi
+
+
+if [ -e "SOR.dat" ]             #If the Jacobi data file exists then then these lines plot it using gnuplot
+then                               #The following are all gnuplot commands 
+gnuplot <<EOF
+set terminal postscript color
+set key off
+set output "SOR.ps"
+set size square
+
+set title " Potential of system using SOR"
+set xlabel "x"
+set ylabel "y"
+set zlabel "z"
+set pm3d scansforward
+set palette rgbformulae 30,31,32
+
+splot "SOR.dat" using 1:2:3 with pm3d title "SOR"
+
+EOF
+
+ps2pdf14 SOR.ps     #Converts output to pdf
+rm -rf SOR.ps       #Removes the PS file
+#rm SOR.dat          #Removes the data file
+fi
+
 
 exit 0
