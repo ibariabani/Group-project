@@ -2,19 +2,19 @@
 
 /*This program takes an array from the boundary conditions program, and runs the Jacobi method on it*/
 
-
 using namespace std;
 
-float UNew[10000][10000]; //Declare large array outside stack
+float UNew[10000][10000];       //Declare large array outside stack
 
 void Jacobi(){
   
-  double x=0,y=0, ItMax=0, Pre=0, Post=0,Err=0, it=0, ErrTol=0, ErrTotal=1, ArraySize=0;     //Declares all neccesary variables
-  int i=0,j=0,m=0,n=0;
+ double x=0,y=0, ItMax=0, Pre=0, Post=0,Err=0, it=0, ErrTol=0, ErrTotal=1, ArraySize=0;     //Declares all neccesary variables
+ int i=0,j=0,m=0,n=0;
 
 
   cout<<"What error tolerance would you like the Jacobi method to iterate to?"<<endl;
   cin>>ErrTol;              //Takes the desired Error tolerance and finds the max iteration number
+  
   ItMax=GS/delta;
  
   
@@ -54,7 +54,7 @@ void Jacobi(){
     for (i=0;i<=ItMax;i++){    //Iterates through the whole grid again
        for(j=0;j<=ItMax; j++){
 	 if (B[i][j]==false){  //If not a user defined boundary
-	   Uj[i][j]=UNew[i][j];  //equates the matrices for the next iteration
+	   Uj[i][j]=UNew[i][j];  //equates the matrices for use in the next iteration
 	  }
        }
      }

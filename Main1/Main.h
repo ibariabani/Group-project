@@ -5,7 +5,7 @@
 #include"fstream"
 
 extern float Uj[10000][10000];     /*Declares these global variables as external so they can be used in all the files linked in*/
-extern float Ug[10000][10000];
+extern float Ug[10000][10000];     /*Saves an inordinate amount of hassle with passing variables to functions etc*/
 extern float delta,GS;
 extern bool B[10000][10000];
 extern float Us[10000][10000];

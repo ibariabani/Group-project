@@ -15,11 +15,25 @@ then
 rm SOR.dat
 fi
 
+if [ -e "GS1.dat" ]
+then
+rm GS1.dat
+rm Analytical1.dat
+fi
+
+if [ -e "GS2.dat" ]
+then
+rm GS2.dat
+rm Analytical2.dat
+fi
+
+
+
 make                    # Makes the main program using the makefile
 
 ./Main                  #Runs the main function
 
-if [ -e "GS1.dat" ]
+if [ -e "GS1.dat" ]     #If this data file exists then the user has run the 1st example, gnuplots appropriate data
 then
 gnuplot <<EOF
 set terminal postscript color
@@ -39,13 +53,13 @@ splot "Analytical1.dat" using 1:2:4 with pm3d title "Analytical solution"
 
 EOF
 
-ps2pdf14 Problem1.ps
-rm -rf Problem1.ps
-rm GS1.dat
+ps2pdf14 Problem1.ps      #converts to pdf
+rm -rf Problem1.ps        #removes ps file
+rm GS1.dat                #removes data files
 rm Analytical1.dat
 fi
 
-if [ -e "GS2.dat" ]
+if [ -e "GS2.dat" ]  #If this data file exists then the user has run the 2nd example, gnuplots appropriate data
 then
 gnuplot <<EOF
 set terminal postscript color
@@ -65,8 +79,8 @@ splot "Analytical2.dat" using 1:2:3 with pm3d title "Analytical solution"
 
 EOF
 
-ps2pdf14 Problem2.ps
-rm -rf Problem2.ps
+ps2pdf14 Problem2.ps         #Converts ps file to pdf
+rm -rf Problem2.ps           #Removes data files an ps file
 rm GS2.dat
 rm Analytical2.dat
 fi
@@ -138,7 +152,7 @@ EOF
 
 ps2pdf14 SOR.ps     #Converts output to pdf
 rm -rf SOR.ps       #Removes the PS file
-#rm SOR.dat          #Removes the data file
+rm SOR.dat          #Removes the data file
 fi
 
 

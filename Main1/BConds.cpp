@@ -2,7 +2,7 @@
 
 using namespace std;
 
-float delta, GS;
+float delta, GS;                      //Declares these as global variables to be used by extern in the h file
 
 
 int BConds(){

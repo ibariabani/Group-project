@@ -1,13 +1,14 @@
-#include "Problem2.h"
+#include "Problem2.h"            //Includes neccessary header file
 
 using namespace std;
-float U2[10000][10000];
+float U2[10000][10000];          //Declare array outside stack to avoid memory alloc problems 
 
 int Problem2(){
   double a=0,V0=0,Delta=0,ErrTol=0, x=0,d=0, y=0, r=0, V=0,Xit=0,Pre=0, Post=0,Err=0, ErrTotal=1, it=0;
-int i=0,j=0,t=0;
- 
- cout<<"This program runs a Gauss-Siedell simulations of the potential between two plates of opposing potentials V0 and -V0"<<endl;
+  int i=0,j=0,t=0;                            //Declares all required variables
+
+                                          //Takes all the required user input parameters
+  cout<<"This program runs a Gauss-Siedell simulations of the potential between two plates of opposing potentials V0 and -V0"<<endl;
  cout<<"with a conducting sphere at V=0 in the middle."<<endl;
   cout<< "Please enter the radius of the sphere"<<endl;
   cin>>a;
@@ -20,36 +21,38 @@ int i=0,j=0,t=0;
  cout<<"What error tolerance would you like?"<<endl;
  cin>>ErrTol; 
 
-  if ((2*a)>d) {
+ if ((2*a)>d) {                  //Ensures that the sphere lies within the plates
       cout<<"The plates lie within the sphere. Please fix this"<<endl;
       return 2;
   }
-
-Xit=(d)/Delta;    
+ 
+ Xit=(d)/Delta;                 //Calculates the maximum number of iterations req to cover grid
   
 
- ofstream file;
+ ofstream file;                //Opens data file to write analytical solution to
  file.open("Analytical2.dat");
 
- for(i=0; i<=Xit; i++){
+ for(i=0; i<=Xit; i++){           //Iterates accross whole grid
    for(j=0; j<=Xit; j++){
 	  
      x=(i-(Xit/2))*Delta;       //Converts i and j to coordinates centered on inner spheres centre.
      y=(j-(Xit/2))*Delta;
-     r = sqrt(pow(x,2) + pow(y,2));
+     r = sqrt(pow(x,2) + pow(y,2));  //Calcs radius of each point
     
-     if(a>r){
+     if(a>r){                             //If point within the sphere set to ground
        V=0;
      }  
-     else{
+     else{                                 //Otherwise use the analytical solution 
        V = -(V0)*(2*x/d)*(1 - (pow(a,3)/pow(r,3))); 
      }
-     file << x << "    " << y << "    " << V << endl;
-   }
-   file<<"\n";
+     file << x << "    " << y << "    " << V << endl;  //Outputs the data to file
+   } 
+   file<<"\n";                            //insert vertical tab
  }
-file.close();
+ file.close();                           //close file
 
+
+ //This next double for loop sets the initial conditions for the Gauss to work on
  
  for (i=0;i<=Xit;i++){     //Iterates through all x and y to set initial boundary conditions
    for(j=0;j<=Xit; j++){
@@ -67,7 +70,7 @@ file.close();
  }
 
 
- while (ErrTotal>ErrTol){
+ while (ErrTotal>ErrTol){        //while the cumaltive error is above the user defined error tolerance 
  ErrTotal=0;
    for (i=1;i<Xit;i++){               //i and j start iterating from the side of the box containing cylinder
       x=(i-(Xit/2))*Delta;               //Converts i and j to coordinates centered on inner spheres centre.
@@ -81,7 +84,7 @@ file.close();
 	 U2[i][j]=0;
        }
        else{
-       Pre=U2[i][j];                    //Takes the value of the array point before the operation  
+       Pre=U2[i][j];                    //Takes the value of the array point before the operation for use in error calc
 
        if (j==0){              //Uses altered formuala if at J=0 boundary
 	 U2[i][j]=(1.0/4.0)*(U2[i+1][j]+U2[i-1][j]+U2[i][j+1]+U2[i][j]);
@@ -108,14 +111,13 @@ file.close();
        }
      }
    }
-   cout<<ErrTotal<<endl;
-   it++;
+   it++;             //increments iterator by 1
  }
 
- cout<<"The Gauss Siedell took "<<it<<" iterations to converge to desired accuracy"<<endl;
+ cout<<"The Gauss Siedell took "<<it<<" iterations to converge to desired accuracy"<<endl;    //Outputs the iterations required 
  
 
-file.open("GS2.dat");
+ file.open("GS2.dat");      //Opens a file to write data to
 
 for(i=0; i<=Xit;i++){     //Iterates to output all x values
     for(j=0; j<=Xit; j++){  //Iterates to output all y values

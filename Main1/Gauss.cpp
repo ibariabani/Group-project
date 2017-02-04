@@ -17,15 +17,15 @@ void Gauss(){
 
  
   
-  while (ErrTotal>GSErrTol){ //iterates while the cumalitive error is larger than the tolerance required
-    ErrTotal=0;               //Resets the cumalitive error to zero
+  while (ErrTotal>GSErrTol){         //iterates while the cumalitive error is larger than the tolerance required
+    ErrTotal=0;                        //Resets the cumalitive error to zero
    
-   for (i=0;i<= ItMax;i++){ //iterates over the entire grid 
+   for (i=0;i<= ItMax;i++){            //iterates over the entire grid 
      for(j=0;j<= ItMax; j++){
 
-       if(B[i][j]==false){  //If point is not a user defined boundary
+       if(B[i][j]==false){            //If point is not a user defined boundary
 
-	 Pre=Ug[i][j];     //Takes the value of the array point before the operation
+	 Pre=Ug[i][j];               //Takes the value of the array point before the operation
 	   
 	 if (j==0){              //Uses altered formuala if at J=0 boundary
 	  Ug[i][j]=(1.0/4.0)*(Ug[i+1][j]+Ug[i-1][j]+Ug[i][j+1]+Ug[i][j]);
@@ -68,7 +68,7 @@ file.open("GS.dat");
 for(i=0; i<= ItMax;i++){     //Iterates to output all x values
   for(j=0; j<=ItMax; j++){  //Iterates to output all y values
 
-      x=(i-(ItMax/2))*delta;       //Converts i and j to coordinates centered on inner spheres centre.
+      x=(i-(ItMax/2))*delta;       //Converts i and j to x and y coordinates
       y=(j-(ItMax/2))*delta;
       
                             //Outputs x,y and function value at each point

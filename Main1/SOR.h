@@ -1,4 +1,4 @@
-#include<iostream>  /*Includes all neccessary libraries*/
+#include<iostream>  /*Includes all neccessary libraries and header files*/
 #include<cmath>
 #include<cstdlib>
 #include"math.h"
