@@ -19,6 +19,57 @@ make                    # Makes the main program using the makefile
 
 ./Main                  #Runs the main function
 
+if [ -e "GS1.dat" ]
+then
+gnuplot <<EOF
+set terminal postscript color
+set key off
+set output "Problem1.ps"
+set size square
+
+set title "Potential in concentric sphere"
+set xlabel "x"
+set ylabel "y"
+set zlabel "z"
+set pm3d scansforward
+set palette rgbformulae 30,31,32
+
+splot "GS1.dat" using 1:2:3 with pm3d title "Gauss-Siedel solution"
+splot "Analytical1.dat" using 1:2:4 with pm3d title "Analytical solution"
+
+EOF
+
+ps2pdf14 Problem1.ps
+rm -rf Problem1.ps
+rm GS1.dat
+rm Analytical1.dat
+fi
+
+if [ -e "GS2.dat" ]
+then
+gnuplot <<EOF
+set terminal postscript color
+set key off
+set output "Problem2.ps"
+set size square
+
+set title "Potential between two parrallel plates with a sphere at the centre"
+set xlabel "x"
+set ylabel "y"
+set zlabel "z"
+set pm3d scansforward
+set palette rgbformulae 30,31,32
+
+splot "GS2.dat" using 1:2:3 with pm3d title "Gauss-Siedel solution"
+splot "Analytical2.dat" using 1:2:3 with pm3d title "Analytical solution"
+
+EOF
+
+ps2pdf14 Problem2.ps
+rm -rf Problem2.ps
+rm GS2.dat
+rm Analytical2.dat
+fi
 
 if [ -e "GS.dat" ]         #After the Main function has run, if the Gauss data file exists then plot it
 then                       #The next few lines are all GNUPLOT commands to give a graph
