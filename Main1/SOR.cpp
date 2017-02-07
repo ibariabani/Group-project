@@ -12,28 +12,28 @@ using namespace std;
 
 int SOR(){
 
-  double resid=0,x=0,y=0, ItMax=0, ErrTol=0,omega=0,ErrTotal=1, Pre=0, Post=0,err=0;
+  double resid=0,x=0,y=0, ItMax=0, error=1, InitErr=0, omega=0,ErrTol=1, Pre=0, Post=0,err=0;
   int a=1,b=1,c=1,d=1,e=-4, n=0;              //PDE coefficients set to solve Poisson's equation as it is for this potential problem
   double r_jac=cos(3.14159265359/(ItMax+1));
   
   ItMax=GS/delta;                            //Calculate the maximum number of iterations required
   
-   cout<<"Please enter the error tolerance that you want Succesive Over Relaxation to iterate to"<<endl;
+   cout<<"Please enter the reduction factor that you want Succesive Over Relaxation to iterate to"<<endl;
    cin>>ErrTol;                              //Takes the desired error tolerance for the SOR
 
                                      
-   while (ErrTotal>ErrTol){                 //Iterates whilst the cumalitive error on each full grid iteration is above the tolerance
-     ErrTotal=0;                            //resets the error to 0 for each new full grid iteration
-     n++;                                   //increments iteration counter
-
-    for (int OE=1; OE>=0; OE--) {       //divides each iterations in two half-steps, one with odd points, the other with even point
+   while (error>(ErrTol*InitErr)){            //Iterates whilst the cumalitive error on each full grid iteration is above the tolerance
+     error=0;                                  //resets the error to 0 for each new full grid iteration
+     n++;                                      //increments iteration counter
+     cout<<n<<endl;
+     for (int OE=1; OE>=0; OE--) {       //divides each iterations in two half-steps, one with odd points, the other with even point
                                        //(cf: Numerical recipes p892 for info)
          if (n == 1) {                      //calculate omega, changes with each half-step
          	if (OE == 1) {
 	            omega = 1;       //first iteration
 	            }
 	        else {
-	            omega = 1/(1-r_jac*r_jac/2); //1.5th iteration
+		  omega = 1/(1-r_jac*r_jac/2); //1.5th iteration
               	}	
           }
       
@@ -45,7 +45,7 @@ int SOR(){
 	   for (int l=0; l<=ItMax; l++) {
               
 	     if (B[j][l]==false) {          //if point is outwith any defined boundary zone
-	       Pre=Us[j][l];              //boundary cases changed to avoid having unintended fixed boundaries, simulate infinite boundaries
+	                                //boundary cases changed to avoid having unintended fixed boundaries, simulate infinite boundaries
 	                             //residual comes from some equations somewhere, used for SOR method and error calculation
 	       resid = e*Us[j][l];
 	       if (j == ItMax) resid += a*Us[j][l];      //If at j=MAX boundary
@@ -58,16 +58,18 @@ int SOR(){
 	       else resid += d*Us[j][l-1];
 	      
 	       Us[j][l] -= omega*resid/e;
-	                                      //calculates the updated u(j,l) using omega and resid
-	       Post=Us[j][l];                 //The value of each array point is taken before and after SOR and diff is the error
-	       // error += fabs(resid);         //error calculation
-	       err=abs(Pre-Post);               
-	       ErrTotal=ErrTotal+err;          //Cumalitive error
+
+	                                       //The value of each array point is taken before and after SOR and diff is the error
+	       error += fabs(resid);         //error calculation
+	  
 	     }
 	  
 	}
 	    
       }
+	 if(n==1){
+	   InitErr=error;
+	 }
     }
    }
 
