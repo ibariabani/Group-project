@@ -23,7 +23,7 @@ void Methods::Jacobi(double a, double b,double c){
     }
   } 
 
- ofstream errfile("Jacobidiff.dat");
+ ofstream errfile("dJacobi");
 
  
   while (ErrTotal>ErrTol){        //While the error on each iteration is greater than the error tolerance
@@ -77,7 +77,7 @@ errfile.close();
   cout<<"The Jacobi Method took " << it <<" iterations to converge"<<endl;  //Outputs the number of iterations 
 
   ofstream vfile;               //Opens file to write output data to
-  vfile.open("Jacobi.dat");
+  vfile.open("vJacobi");
   
   for(i=0; i<=ItMax;i++){     //Iterates to output all x values
     for(j=0; j<=ItMax; j++){  //Iterates to output all y values
@@ -94,7 +94,7 @@ errfile.close();
   vfile.close();      //closes file
 
 
-  ofstream eFile("eJac.dat");
+  ofstream eFile("eJacobi");
   for(int k=0; k<=ItMax; k++) {
     x = (k - (ItMax/2)) * delta;
     for(int m=0; m<=ItMax; m++) {
@@ -136,7 +136,7 @@ void Methods::Gauss(double a, double b, double c){
     }
   }
 
-   ofstream errfile("Gaussdiff.dat");
+   ofstream errfile("dGS");
   
   while (ErrTotal>GSErrTol){         //iterates while the cumalitive error is larger than the tolerance required
     ErrTotal=0;                        //Resets the cumalitive error to zero
@@ -186,7 +186,7 @@ errfile.close();
 
  
   ofstream file;               //Opens file to write output data to
-  file.open("GS.dat");
+  file.open("vGS");
   
   for(i=0; i<= ItMax;i++){     //Iterates to output all x values
   for(j=0; j<=ItMax; j++){  //Iterates to output all y values
@@ -203,7 +203,7 @@ errfile.close();
   file.close();      //closes file
   
 
-  ofstream eFile("eGS.dat");
+  ofstream eFile("eGS");
   for(int k=0; k<=ItMax; k++) {
     x = (k - (ItMax/2)) * delta;
     for(int m=0; m<=ItMax; m++) {
@@ -248,7 +248,7 @@ void Methods::SOR(double a, double b,double c){
   }
 
 
-ofstream errfile("SORdiff.dat");   
+ofstream errfile("dSOR");   
                                      
    while (ErrTotal>ErrTol){            //Iterates whilst the cumalitive error on each full grid iteration is above the tolerance
      ErrTotal=0;                                  //resets the error to 0 for each new full grid iteration
@@ -305,7 +305,7 @@ ofstream errfile("SORdiff.dat");
    cout<<"The SOR method took " << n << " iterations to converge to the desired accuracy"<<endl;      //Outputs iterations required
 
     
-  ofstream file("SOR.dat");          //output the result to a file called "u.dat"
+  ofstream file("vSOR");          //output the result to a file called "u.dat"
   for (int j=0; j<=ItMax; j++) {         //Iterates accross whole grid 
      x=(j-(ItMax/2))*delta;
        for (int l=0; l<=ItMax; l++) {
@@ -319,7 +319,7 @@ ofstream errfile("SORdiff.dat");
   file.close();           //Close file
 
 
-  ofstream eFile("eSOR.dat");
+  ofstream eFile("eSOR");
   for(int k=0; k<=ItMax; k++) {
     x = (k - (ItMax/2)) * delta;
     for(int m=0; m<=ItMax; m++) {
