@@ -15,6 +15,7 @@ void Methods::Jacobi(double a, double b,double c){
  int i=0,j=0,m=0,n=0;
  double GS=b, delta=a, ErrTol=c;
  double ItMax=GS/delta;
+ double Ex,Ey;
 
  for(i=0; i<=ItMax; i++){
     for(j=0;j<=ItMax; j++){
@@ -75,34 +76,59 @@ errfile.close();
   
   cout<<"The Jacobi Method took " << it <<" iterations to converge"<<endl;  //Outputs the number of iterations 
 
-ofstream file;               //Opens file to write output data to
-file.open("Jacobi.dat");
-
-for(i=0; i<=ItMax;i++){     //Iterates to output all x values
-  for(j=0; j<=ItMax; j++){  //Iterates to output all y values
-
+  ofstream vfile;               //Opens file to write output data to
+  vfile.open("Jacobi.dat");
+  
+  for(i=0; i<=ItMax;i++){     //Iterates to output all x values
+    for(j=0; j<=ItMax; j++){  //Iterates to output all y values
+      
       x=(i-(ItMax/2))*delta;       //Converts i and j to coordinates on the grid
       y=(j-(ItMax/2))*delta;
       
-                            //Outputs x,y and function value at each point
-    file<< x << "      "<< y<<"      "<< Uj[i][j]<< "\n";
+      //Outputs x,y and function value at each point
+      vfile<< x << "      "<< y<<"      "<< Uj[i][j]<< "\n";
     }
-    file<<"\n";     //Inserts newline in data file
- }
+    vfile<<"\n";     //Inserts newline in data file
+  }
+  
+  vfile.close();      //closes file
 
-file.close();      //closes file
+
+  ofstream eFile("eJac.dat");
+  for(int k=0; k<=ItMax; k++) {
+    x = (k - (ItMax/2)) * delta;
+    for(int m=0; m<=ItMax; m++) {
+      y = (m - (ItMax/2)) * delta;
+      if (k == 0) {
+	Ex = (Uj[k][m] - Uj[k+1][m]) / (delta);
+      } else if (k == ItMax) {
+	Ex = (Uj[k-1][m] - Uj[k][m]) / (delta);
+      } else {
+	Ex = (Uj[k-1][m] - Uj[k+1][m]) / (2*delta);
+      }
+      if (m == 0) {
+	Ey = (Uj[k][m] - Uj[k][m+1]) / (delta);
+      } else if (m == ItMax) {
+	Ey = (Uj[k][m-1] - Uj[k][m]) / (delta);
+      } else {
+	Ey = (Uj[k][m-1] - Uj[k][m+1]) / (2*delta);
+      }
+      eFile << x << "\t" << y << "\t" << Ex << "\t" << Ey << "\n";
+    }
+  }
+  eFile.close();
 }
-
 
 
 void Methods::Gauss(double a, double b, double c){
   
 
- float Ug[1000][1000];
- double GS=b, delta=a,GSErrTol=c;
- double ItMax=GS/delta;
- double x=0,y=0, Pre=0, Post=0,Err=0, ErrTotal=1,ArraySize=0;
+  float Ug[1000][1000];
+  double GS=b, delta=a,GSErrTol=c;
+  double ItMax=GS/delta;
+  double x=0,y=0, Pre=0, Post=0,Err=0, ErrTotal=1,ArraySize=0;
   int i=0,j=0, m=0,n=0,Git=0;      //Declares all neccessary variables
+  double Ex,Ey;
 
   for(i=0; i<=ItMax; i++){
     for(j=0;j<=ItMax; j++){
@@ -159,22 +185,47 @@ errfile.close();
 
 
  
-ofstream file;               //Opens file to write output data to
-file.open("GS.dat");
-
-for(i=0; i<= ItMax;i++){     //Iterates to output all x values
+  ofstream file;               //Opens file to write output data to
+  file.open("GS.dat");
+  
+  for(i=0; i<= ItMax;i++){     //Iterates to output all x values
   for(j=0; j<=ItMax; j++){  //Iterates to output all y values
-
+    
       x=(i-(ItMax/2))*delta;       //Converts i and j to x and y coordinates
       y=(j-(ItMax/2))*delta;
       
-                            //Outputs x,y and function value at each point
-        file<< x << "      "<< y<<"      "<< Ug[i][j]<< "\n";
-    }
-    file<<"\n";     //Inserts newline in data file
-}
+      //Outputs x,y and function value at each point
+      file<< x << "      "<< y<<"      "<< Ug[i][j]<< "\n";
+  }
+  file<<"\n";     //Inserts newline in data file
+  }
+  
+  file.close();      //closes file
+  
 
-file.close();      //closes file
+  ofstream eFile("eGS.dat");
+  for(int k=0; k<=ItMax; k++) {
+    x = (k - (ItMax/2)) * delta;
+    for(int m=0; m<=ItMax; m++) {
+      y = (m - (ItMax/2)) * delta;
+      if (k == 0) {
+	Ex = (Ug[k][m] - Ug[k+1][m]) / (delta);
+      } else if (k == ItMax) {
+	Ex = (Ug[k-1][m] - Ug[k][m]) / (delta);
+      } else {
+	Ex = (Ug[k-1][m] - Ug[k+1][m]) / (2*delta);
+      }
+      if (m == 0) {
+	Ey = (Ug[k][m] - Ug[k][m+1]) / (delta);
+      } else if (m == ItMax) {
+	Ey = (Ug[k][m-1] - Ug[k][m]) / (delta);
+      } else {
+	Ey = (Ug[k][m-1] - Ug[k][m+1]) / (2*delta);
+      }
+      eFile << x << "\t" << y << "\t" << Ex << "\t" << Ey << "\n";
+    }
+  }
+  eFile.close();
 
 }
 
@@ -184,10 +235,11 @@ void Methods::SOR(double a, double b,double c){
 
    float Us[1000][1000];
    double resid=0,x=0,y=0, ErrTotal=1, InitErr=0, omega=0, Pre=0, Post=0,err=0, Uold=0;
-  int a1=1,b1=1,c1=1,d1=1,e1=-4, n=0,i=0,j=0;       //PDE coefficients set to solve Poisson's equation as it is for this potential problem
+  int n=0,i=0,j=0;       //PDE coefficients set to solve Poisson's equation as it is for this potential problem
   double GS=b, delta=a ,ErrTol=c;
   double ItMax=GS/delta;
   double r_jac=cos(3.14159265359/(ItMax+1));
+  double Ex,Ey,z;
   
  for(i=0; i<=ItMax; i++){
     for(j=0;j<=ItMax; j++){
@@ -217,24 +269,26 @@ ofstream errfile("SORdiff.dat");
         	omega = 1/(1-r_jac*r_jac*omega/4); //other iterations, uses r_jac
           }
     
-	 for (int j=OE; j<=ItMax; j+=2) {
-	   for (int l=0; l<=ItMax; l++) {
+	 for (int j=0; j<=ItMax; j++) {
+	   if (OE) z = j%2;
+	   else z = !(j%2);
+	   for (int l=z; l<=ItMax; l+=2) {
               
 	     if (B[j][l]==false) {          //if point is outwith any defined boundary zone
 
 	       Uold = Us[j][l];           //boundary cases changed to avoid having unintended fixed boundaries, simulate infinite boundaries
 	                             //residual comes from some equations somewhere, used for SOR method and error calculation
-	       resid = e1*Us[j][l];
-	       if (j == ItMax) resid += a1*Us[j][l];      //If at j=MAX boundary
-	       else resid += a1*Us[j+1][l];         
-	       if (j == 0) resid += b1*Us[j][l];          //If at j=0 boundary
-	       else resid += b1*Us[j-1][l];
-	       if (l == ItMax) resid += c1*Us[j][l];      //if at l=MAX boundary
-	       else resid += c1*Us[j][l+1];
-	       if (l == 0) resid += d1*Us[j][l];          //if at l=0 boundary
-	       else resid += d1*Us[j][l-1];
+	       resid = -4*Us[j][l];
+	       if (j == ItMax) resid += Us[j][l];      //If at j=MAX boundary
+	       else resid += Us[j+1][l];         
+	       if (j == 0) resid += Us[j][l];          //If at j=0 boundary
+	       else resid += Us[j-1][l];
+	       if (l == ItMax) resid += Us[j][l];      //if at l=MAX boundary
+	       else resid += Us[j][l+1];
+	       if (l == 0) resid += Us[j][l];          //if at l=0 boundary
+	       else resid += Us[j][l-1];
 	      
-	       Us[j][l] -= omega*resid/e1;
+	       Us[j][l] -= omega*resid/(-4);
 
 	                                       //The value of each array point is taken before and after SOR and diff is the error
 	       ErrTotal += fabs(Uold - Us[j][l]);        //error calculation
@@ -265,7 +319,30 @@ ofstream errfile("SORdiff.dat");
   file.close();           //Close file
 
 
+  ofstream eFile("eSOR.dat");
+  for(int k=0; k<=ItMax; k++) {
+    x = (k - (ItMax/2)) * delta;
+    for(int m=0; m<=ItMax; m++) {
+      y = (m - (ItMax/2)) * delta;
+      if (k == 0) {
+	Ex = (Us[k][m] - Us[k+1][m]) / (delta);
+      } else if (k == ItMax) {
+	Ex = (Us[k-1][m] - Us[k][m]) / (delta);
+      } else {
+	Ex = (Us[k-1][m] - Us[k+1][m]) / (2*delta);
+      }
+      if (m == 0) {
+	Ey = (Us[k][m] - Us[k][m+1]) / (delta);
+      } else if (m == ItMax) {
+	Ey = (Us[k][m-1] - Us[k][m]) / (delta);
+      } else {
+	Ey = (Us[k][m-1] - Us[k][m+1]) / (2*delta);
+      }
+      eFile << x << "\t" << y << "\t" << Ex << "\t" << Ey << "\n";
+    }
+  }
+  eFile.close();
 
-   }
+}
 
   
