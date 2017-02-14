@@ -1,83 +1,109 @@
-#include<iostream>  /*Includes all neccessary libraries*/
+#include<iostream>  /*Includes all necessary libraries and other header files*/
 #include<cmath>
 #include<cstdlib>
-#include<fstream>
-#include"Analytical2.h"
-#include"GS2.h"
-#include"Analytical1.h"
-#include"GS1.h"
+#include"fstream"
+#include"Bcond.h"
+#include "Methods.h"
+#include <chrono> //required library for time measurements
 
+// /!\ -std=c++11 is required in the compiler for the <chrono> library to work correctly /!\
 
 using namespace std;
 
-double a = 0, b=0, V0 = 0, d = 0, delta = 0, TitMax = 0;
-int Index=0;
+using std::chrono::steady_clock;
+using std::chrono::time_point;
+using std::chrono::duration_cast;
+using std::chrono::milliseconds;
 
 
-int Problem2(){
-  cout<<"This program runs a Jacobi simulation of the potential between two plates of opposing potentials V0 and -V0"<<endl;
-  cout<<"with a conducting sphere at V=0 in the middle."<<endl;
+int main (){
+  double delta=1, GS=100000, ErrTol=0;
+  char J,G,S,z,n;
+
+  cout<<"This program numerically solves electrostatics problems and returns the potential and electric field."<<"\n"<<endl;
+  cout<<"There are 3 numerical methods to choose from, and you can run several and compare efficiency etc if you wish."<<"\n"<<endl;
+  cout<<"Before defining your setup, you must enter the dimensions of your setup, and a step size for the methods."<<"\n"<<endl;
   
-  cout<< "Please enter the radius of the sphere"<<endl;
-  cin>>a;
-  cout<< "Please enter the absolute value of the potential at the plates"<<endl;
-  cin>>V0;
-  cout<< "Please enter the seperation of the plates. This must be larger than the diameter of the sphere"<<endl;
-  cin>>d;
-  cout<<"Please enter the step size for the Jacobi method to use"<<endl;
-  cin>>delta;
-  cout<<"How many times do you want the simulation to iterate"<<endl;
-  cin>>TitMax;
+  while((GS/delta)>1000){
+    cout<<"Please enter the dimension of your setup (distance from side to side)"<<endl;
+    cin>>GS;
+    cout<<"What step size would you like to use?"<<endl;
+    cin>>delta;
+    cout<<"What error tolerances would you like to run your methods to?"<<endl;
+    cin>>ErrTol;
 
-  if ((2*a)>d)
-    {
-      cout<<"The plates lie within the sphere. Please fix this"<<endl;
-      return 2;
+    if(GS/delta>1000){
+      cout<<"The dimension divided by the step size must not be larger than 1000"<<endl;
     }
+  }
+  
 
-  GS2(a,V0,d,delta,TitMax);
-  Analytical2(a,V0,d,delta);
+  cout<<"There are two preset examples with analytical solutions for comparisons,"<<endl;
+  cout<< " would you like to run one of these? Type Y for yes or any other key to skip to defining your own boundaries"<<endl;
+  cin>>z;
+  if(z=='Y'){
+    cout<<"Type 1 for concentric spheres, and 2 for a sphere between two parralel plates"<<endl;
+    cin>>n;
+    
+    if(n=='1'){
+      Bconds::Problem1(delta,GS);
+    }
+    else if(n=='2'){
+       Bconds::Problem2(delta,GS);
+    }
+  }
+    
+  Bconds::ud(delta, GS);
+  
+   for(int i=0;i<=(GS/delta);i++){
+        for(int j=0;j<=(GS/delta);j++){
+	  Methods::U[i][j]=Bconds::U[i][j];
+	  Methods::B[i][j]=Bconds::B[i][j];
+	}
+    }
+  
 
+  cout<<"Would you like to run the Jacobi Method? Type Y for yes, any other key for no,"<<endl;
+  cin>>J;
+
+  if(J=='Y'){
+    time_point<steady_clock> Jstart = steady_clock::now(); //declaring start time
+
+    Methods::Jacobi(delta,GS,ErrTol);
+
+    time_point<steady_clock> Jend = steady_clock::now(); //end time
+    milliseconds Jtime = duration_cast<milliseconds>(Jend-Jstart); //calculate time difference
+    cout << "The Jacobi method took " << Jtime.count() << "ms to solve the problem." << endl;
+  }
+
+  cout<<"Would you like to run the Gauss Siedell? Press Y for yes, or any other key for no,"<<endl;
+  cin>>G;
+
+  if (G=='Y'){
+    time_point<steady_clock> Gstart = steady_clock::now(); //declaring start time
+
+    Methods::Gauss(delta, GS,ErrTol);
+
+    time_point<steady_clock> Gend = steady_clock::now(); //end time
+    milliseconds Gtime = duration_cast<milliseconds>(Gend-Gstart); //calculate time difference
+    cout << "The Gauss-Seidell method took " << Gtime.count() << "ms to solve the problem." << endl;
+  }
+
+   cout<<"Would you like to run the SOR method?Press Y for yes or  any other key for no,"<<endl;
+  cin>>S;
+
+  if (S=='Y'){
+    time_point<steady_clock> Sstart = steady_clock::now(); //declaring start time
+
+    Methods::SOR(delta, GS,ErrTol);
+
+    time_point<steady_clock> Send = steady_clock::now(); //end time
+    milliseconds Stime = duration_cast<milliseconds>(Send-Sstart); //calculate time difference
+    cout << "The SOR method took " << Stime.count() << "ms to solve the problem." << endl;
+  }
+  
+
+
+  
   return 0;
 }
-
-int Problem1(){
-  cout<<"This program runs a Jacobi and Gauss-Siedel simulation of the potential in a concentric sphere and compares it to the analytical."<<endl;
-cout<< "Please enter the radius of the inner sphere"<<endl;
-cin>>a;
-cout<< "Please enter the radius of the outer sphere"<<endl;
-cin>>b;
-cout<< "Please enter the potential at the outer sphere"<<endl;
-cin>>V0;
-cout<<"Please enter the step size"<<endl;
-cin>>delta;
-cout<<"How many times do you want the simulation to iterate"<<endl;
-cin>>TitMax;
-
- GS1(a,b,V0,delta,TitMax);
- Analytical1(a,b,V0,delta);
-
- return 0;
-}
- 
-
-int main(){
-  cout<<"Please type 1 for problem 1, and 2 for problem 2"<<endl;
-cin>>Index;
-
-if (Index != 1 && Index != 2){
-  cerr<<"This is not one of the options"<<endl;
-  return 1;
- }
-
-if (Index ==1){
-  Problem1();
- }
-
-if (Index ==2){
-  Problem2();
- }
-
-return 0;
- 
- }
