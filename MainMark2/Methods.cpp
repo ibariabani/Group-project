@@ -21,7 +21,10 @@ void Methods::Jacobi(double a, double b,double c){
       Uj[i][j]=U[i][j];
     }
   } 
-  
+
+ ofstream errfile("Jacobidiff.dat");
+
+ 
   while (ErrTotal>ErrTol){        //While the error on each iteration is greater than the error tolerance
     ErrTotal=0;                   //Resets the cumalitive error for each iteration to zero
    
@@ -63,9 +66,13 @@ void Methods::Jacobi(double a, double b,double c){
        }
      }
     it++;    //Adds to the iteration counter (Times iterated over whole grid)
+
+    errfile << it << "\t" << ErrTotal << endl;
 }
 
+errfile.close();
 
+  
   cout<<"The Jacobi Method took " << it <<" iterations to converge"<<endl;  //Outputs the number of iterations 
 
 ofstream file;               //Opens file to write output data to
@@ -103,7 +110,7 @@ void Methods::Gauss(double a, double b, double c){
     }
   }
 
-  
+   ofstream errfile("Gaussdiff.dat");
   
   while (ErrTotal>GSErrTol){         //iterates while the cumalitive error is larger than the tolerance required
     ErrTotal=0;                        //Resets the cumalitive error to zero
@@ -141,8 +148,10 @@ void Methods::Gauss(double a, double b, double c){
      }
    }
    Git++;      //Increases iteration counter after every full grid iteration
- }
 
+   errfile << Git << "\t" << ErrTotal << endl;
+ }
+errfile.close();
 
  
   cout<< "Gauss Siedell took "<<Git<<" iterations to converge"<< endl;  //Outputs 
@@ -174,7 +183,7 @@ void Methods::SOR(double a, double b,double c){
   
 
    float Us[1000][1000];
-  double resid=0,x=0,y=0, error=1, InitErr=0, omega=0, Pre=0, Post=0,err=0;
+   double resid=0,x=0,y=0, ErrTotal=1, InitErr=0, omega=0, Pre=0, Post=0,err=0, Uold=0;
   int a1=1,b1=1,c1=1,d1=1,e1=-4, n=0,i=0,j=0;       //PDE coefficients set to solve Poisson's equation as it is for this potential problem
   double GS=b, delta=a ,ErrTol=c;
   double ItMax=GS/delta;
@@ -187,10 +196,10 @@ void Methods::SOR(double a, double b,double c){
   }
 
 
-   
+ofstream errfile("SORdiff.dat");   
                                      
-   while (error>(ErrTol*InitErr)){            //Iterates whilst the cumalitive error on each full grid iteration is above the tolerance
-     error=0;                                  //resets the error to 0 for each new full grid iteration
+   while (ErrTotal>ErrTol){            //Iterates whilst the cumalitive error on each full grid iteration is above the tolerance
+     ErrTotal=0;                                  //resets the error to 0 for each new full grid iteration
      n++;                                      //increments iteration counter
     
      for (int OE=1; OE>=0; OE--) {       //divides each iterations in two half-steps, one with odd points, the other with even point
@@ -212,7 +221,8 @@ void Methods::SOR(double a, double b,double c){
 	   for (int l=0; l<=ItMax; l++) {
               
 	     if (B[j][l]==false) {          //if point is outwith any defined boundary zone
-	                                //boundary cases changed to avoid having unintended fixed boundaries, simulate infinite boundaries
+
+	       Uold = Us[j][l];           //boundary cases changed to avoid having unintended fixed boundaries, simulate infinite boundaries
 	                             //residual comes from some equations somewhere, used for SOR method and error calculation
 	       resid = e1*Us[j][l];
 	       if (j == ItMax) resid += a1*Us[j][l];      //If at j=MAX boundary
@@ -227,17 +237,15 @@ void Methods::SOR(double a, double b,double c){
 	       Us[j][l] -= omega*resid/e1;
 
 	                                       //The value of each array point is taken before and after SOR and diff is the error
-	       error += fabs(resid);         //error calculation
+	       ErrTotal += fabs(Uold - Us[j][l]);        //error calculation
 	  
 	     }
 	  
 	}
 	    
       }
-	 if(n==1){
-	   InitErr=error;
-	 }
     }
+   errfile << n << "\t" << ErrTotal << endl;
    }
 
    cout<<"The SOR method took " << n << " iterations to converge to the desired accuracy"<<endl;      //Outputs iterations required

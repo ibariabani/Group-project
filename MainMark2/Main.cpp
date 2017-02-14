@@ -9,17 +9,26 @@ using namespace std;
 
 
 int main (){
-  double delta=0, GS=0, ErrTol=0;
+  double delta=1, GS=100000, ErrTol=0;
   char J,G,S,z,n;
+
+  cout<<"This program numerically solves electrostatics problems and returns the potential and electric field."<<"\n"<<endl;
+  cout<<"There are 3 numerical methods to choose from, and you can run several and compare efficiency etc if you wish."<<"\n"<<endl;
+  cout<<"Before defining your setup, you must enter the dimensions of your setup, and a step size for the methods."<<"\n"<<endl;
   
-  cout<<"What grid size do you wish to use?"<<endl;
-  cin>>GS;
-  cout<<"What step size would you like to use?"<<endl;
-  cin>>delta;
-  cout<<"What error tolerances would you like to run your methods to?"<<endl;
-  cin>>ErrTol;
+  while((GS/delta)>1000){
+    cout<<"Please enter the dimension of your setup (distance from side to side)"<<endl;
+    cin>>GS;
+    cout<<"What step size would you like to use?"<<endl;
+    cin>>delta;
+    cout<<"What error tolerances would you like to run your methods to?"<<endl;
+    cin>>ErrTol;
 
-
+    if(GS/delta>1000){
+      cout<<"The dimension divided by the step size must not be larger than 1000"<<endl;
+    }
+  }
+  
 
   cout<<"There are two preset examples with analytical solutions for comparisons,"<<endl;
   cout<< " would you like to run one of these? Type Y for yes or any other key to skip to defining your own boundaries"<<endl;
