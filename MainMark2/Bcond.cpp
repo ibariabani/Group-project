@@ -42,7 +42,7 @@ cin>>V0;
  }
 
   ofstream file;                         //Opens a file to write the analytical solution data to
-file.open("Analytical1.dat");
+file.open("vAnalytical1");
 
  for(int i=0; i<=ItMax; i++){                //Loops through the entire grid
 	for(int j=0; j<=ItMax; j++){
@@ -117,7 +117,7 @@ void Bconds::Problem2(double a, double b){
 
 
  ofstream file;                //Opens data file to write analytical solution to
- file.open("Analytical2.dat");
+ file.open("vAnalytical2");
 
  for(i=0; i<=ItMax; i++){           //Iterates accross whole grid
    for(j=0; j<=ItMax; j++){
