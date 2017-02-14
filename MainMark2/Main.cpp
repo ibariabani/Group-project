@@ -4,8 +4,16 @@
 #include"fstream"
 #include"Bcond.h"
 #include "Methods.h"
+#include <chrono> //required library for time measurements
+
+// /!\ -std=c++11 is required in the compiler for the <chrono> library to work correctly /!\
 
 using namespace std;
+
+using std::chrono::steady_clock;
+using std::chrono::time_point;
+using std::chrono::duration_cast;
+using std::chrono::milliseconds;
 
 
 int main (){
@@ -58,21 +66,39 @@ int main (){
   cin>>J;
 
   if(J=='Y'){
+    time_point<steady_clock> Jstart = steady_clock::now(); //declaring start time
+
     Methods::Jacobi(delta,GS,ErrTol);
+
+    time_point<steady_clock> Jend = steady_clock::now(); //end time
+    milliseconds Jtime = duration_cast<milliseconds>(Jend-Jstart); //calculate time difference
+    cout << "The Jacobi method took " << Jtime.count() << "ms to solve the problem." << endl;
   }
 
   cout<<"Would you like to run the Gauss Siedell? Press Y for yes, or any other key for no,"<<endl;
   cin>>G;
 
   if (G=='Y'){
+    time_point<steady_clock> Gstart = steady_clock::now(); //declaring start time
+
     Methods::Gauss(delta, GS,ErrTol);
+
+    time_point<steady_clock> Gend = steady_clock::now(); //end time
+    milliseconds Gtime = duration_cast<milliseconds>(Gend-Gstart); //calculate time difference
+    cout << "The Gauss-Seidell method took " << Gtime.count() << "ms to solve the problem." << endl;
   }
 
    cout<<"Would you like to run the SOR method?Press Y for yes or  any other key for no,"<<endl;
   cin>>S;
 
   if (S=='Y'){
+    time_point<steady_clock> Sstart = steady_clock::now(); //declaring start time
+
     Methods::SOR(delta, GS,ErrTol);
+
+    time_point<steady_clock> Send = steady_clock::now(); //end time
+    milliseconds Stime = duration_cast<milliseconds>(Send-Sstart); //calculate time difference
+    cout << "The SOR method took " << Stime.count() << "ms to solve the problem." << endl;
   }
   
 
