@@ -25,21 +25,29 @@ done
 rm -rf EFields.ps
 
 
-if [[ -e "dJacobi" && -e "dGS" && -e "dSOR" ]]
-then
-gnuplot <<EOF
+#if [[ -e "dJacobi" && -e "dGS" && -e "dSOR" ]]
+#then
+echo -n "\
 set terminal postscript color
 set logscale xy
-set output "diffplot.ps"
-plot "dJacobi" with lines, "dGS" with lines, "dSOR" with lines
+set output \"plotdiff.ps\"
+plot " > plotdiff.plt
 
-EOF
+c=0
 
-ps2pdf14 diffplot.ps
-rm -rf diffplot.ps
-rm dJacobi
-rm dGS
-rm dSOR
+for file in d*
+do
+echo -n "\"$file\" with lines, " >> plotdiff.plt
+c=1
+done
+
+if [ $c -eq 1 ]; then
+gnuplot plotdiff.plt
+ps2pdf14 plotdiff.ps
+rm -rf plotdiff.ps
 fi
+
+rm -rf plotdiff.plt
+rm -rf d*
 
 exit 0

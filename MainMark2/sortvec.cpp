@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
     }
 
     if ( !(((int)(size*x))%(size/10)) && !(((int)(size*y))%(size/10)) )
-      eSort << x << "\t" << y << "\t" << exn/magav << "\t" << eyn/magav << "\t" << mag << endl;
+      eSort << x << "\t" << y << "\t" << exn/10 << "\t" << eyn/10 << "\t" << mag << endl;
 
   }
 
