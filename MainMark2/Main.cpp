@@ -37,6 +37,8 @@ int main (){
     }
   }
   
+  int size = (int) GS/delta;
+
 
   cout<<"There are two preset examples with analytical solutions for comparisons,"<<endl;
   cout<< " would you like to run one of these? Type Y for yes or any other key to skip to defining your own boundaries"<<endl;
@@ -101,8 +103,6 @@ int main (){
     cout << "The SOR method took " << Stime.count() << "ms to solve the problem." << endl;
   }
   
-
-
-  
+  cout << size << endl;
   return 0;
 }
