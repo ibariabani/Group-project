@@ -26,11 +26,11 @@ cin>>V0;
        y=(j-(ItMax/2))*delta;
        r=sqrt(pow(x,2)+pow(y,2));
        
-       if (r<(r2+delta) && r>(r2-delta)){  //If point is on, or close to on, the outer circle, define as V0
+       if (r>=r2){  //If point is on, or close to on, the outer circle, define as V0
          U[i][j]=V0;                    //Slight inaccuray due to the inexact nature of the x and y coordinate conversion
 	 B[i][j]=true;
          }
-       else if (r<r1 || r>r2){
+       else if (r<=r1){
 	 U[i][j]=0;                 // Otherwise set the value to zero for the Gauss to work on
 	 B[i][j]=true;
 	 }
