@@ -2,7 +2,9 @@
 
 make                    # Makes the main program using the makefile
 clear
-./Main                  #Runs the main function
+./Main | tee temp      #Runs the main function
+size=$(tail -n 1 temp)
+rm -rf temp
 
 rm -rf Results.ps
 rm -rf Results.pdf
@@ -18,7 +20,7 @@ rm -rf EFields.pdf
 touch EFields.ps
 for file in ./e* #Plots all the e* files containing the E field information
 do
-./plotvec.sh $file 200
+./plotvec.sh $file $size
 done
 rm -rf EFields.ps
 
