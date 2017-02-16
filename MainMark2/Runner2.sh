@@ -7,15 +7,23 @@ clear
 rm -rf Results.ps
 rm -rf Results.pdf
 touch Results.ps
-
-for file in ./v* #Plots all the v*.dat files containing the potential information
+for file in ./v* #Plots all the v* files containing the potential information
 do
 ./plotter.sh $file
 done
-
 rm -rf Results.ps 
 
-if [[ -e "dJacobi.dat" && -e "dGauss.dat" && -e "dSOR.dat" ]]
+rm -rf EFields.ps
+rm -rf EFields.pdf
+touch EFields.ps
+for file in ./e* #Plots all the e* files containing the E field information
+do
+./plotvec.sh $file 200
+done
+rm -rf EFields.ps
+
+
+if [[ -e "dJacobi" && -e "dGS" && -e "dSOR" ]]
 then
 gnuplot <<EOF
 set terminal postscript color
