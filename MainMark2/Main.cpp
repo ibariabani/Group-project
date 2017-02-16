@@ -88,7 +88,7 @@ int main (){
     cout << "The Gauss-Seidell method took " << Gtime.count() << "ms to solve the problem." << endl;
   }
 
-   cout<<"Would you like to run the SOR method?Press Y for yes or  any other key for no,"<<endl;
+   cout<<"Would you like to run the SOR method? Press Y for yes or  any other key for no,"<<endl;
   cin>>S;
 
   if (S=='Y'){
