@@ -37,7 +37,7 @@ double MagAv(char* name){
 int main(int argc, char *argv[]) {
 
   std::stringstream convert(argv[2]);
-  double size;
+  int size;
   convert >> size;
 
   double x,y,ex,ey,mag,exn,eyn,k;
@@ -66,7 +66,7 @@ int main(int argc, char *argv[]) {
       eyn = ey/mag;
     }
 
-    if ( !(((int)(size*x))%20) && !(((int)(size*y))%20) )
+    if ( !(((int)(size*x))%(size/10)) && !(((int)(size*y))%(size/10)) )
       eSort << x << "\t" << y << "\t" << exn/magav << "\t" << eyn/magav << "\t" << mag << endl;
 
   }
