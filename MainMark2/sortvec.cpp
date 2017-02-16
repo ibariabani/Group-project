@@ -1,8 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <cmath>
-#include <ctime>
-#include <cstdlib>
 #include <string>
 #include <sstream>
 
@@ -47,8 +45,6 @@ int main(int argc, char *argv[]) {
   double MagAv(char* name);
   double magav = MagAv(argv[1]);
 
-  srand(time(0));
-
   ifstream eFile(argv[1]);
   ofstream eSort("plotvec.dat");
 
@@ -70,9 +66,8 @@ int main(int argc, char *argv[]) {
       eyn = ey/mag;
     }
 
-    k = 4.0 * random() / RAND_MAX / fabs(mag-magav) * pow(size/100,2);
-
-    if (!(floor(k))) eSort << x << "\t" << y << "\t" << exn/magav << "\t" << eyn/magav << "\t" << mag << endl;
+    if ( !(((int)(size*x))%20) && !(((int)(size*y))%20) )
+      eSort << x << "\t" << y << "\t" << exn/magav << "\t" << eyn/magav << "\t" << mag << endl;
 
   }
 
