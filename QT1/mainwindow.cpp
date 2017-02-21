@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include"Bcond.h"
 #include"Methods.h"
+
 #include"QProcess"
 #include"QPixmap"
 #include"QImage"
@@ -14,17 +15,22 @@
 #include"QApplication"
 #include"QPainter"
 #include <unistd.h>
+#include <chrono>
 #include<QString>
 #include"sortvec.h"
 
 using namespace std;
+
+using std::chrono::steady_clock;
+using std::chrono::time_point;
+using std::chrono::duration_cast;
+using std::chrono::milliseconds;
 
 double delta=0.01, GS=3, ErrTol=0.01, radius=0, cx=0, cy=0, l1x=0, l1y=0, l2x=0, l2y=0, tlx=0, tly=0, brx=0, bry=0;
 bool p1=false,p2=false,p3=false;
 QColor colour;
 int shape=0;
 int Grid=int(GS/delta);
-
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -72,7 +78,6 @@ void MainWindow::on_Problem1_clicked()
     Bconds::Problem1(delta, GS);
     QProcess::startDetached("./TempPlotter.sh vAnalytical1");
     sleep(5);
-
     QImage image("vAnalytical1.png");
 
             QGraphicsScene* scene = new QGraphicsScene();
@@ -153,13 +158,21 @@ void MainWindow::on_GaussSeidell_clicked()
 {
     for(int i=0;i<=(GS/delta);i++){
          for(int j=0;j<=(GS/delta);j++){
-       Methods::U[i][j]=Bconds::U[i][j];
-       Methods::B[i][j]=Bconds::B[i][j];
-     }
-     }
- Methods::Gauss(delta, GS, ErrTol);
+           Methods::U[i][j]=Bconds::U[i][j];
+           Methods::B[i][j]=Bconds::B[i][j];
+         }
+    }
+
+ time_point<steady_clock> Gstart = steady_clock::now(); //declaring start time
+
+ Methods::Gauss(delta, GS,ErrTol);
+
+ time_point<steady_clock> Gend = steady_clock::now(); //end time
+ milliseconds Gtime = duration_cast<milliseconds>(Gend-Gstart); //calculate time difference
+ cout << "The Gauss-Seidell method took " << Gtime.count() << "ms to solve the problem." << endl;
+
  QProcess::startDetached("./TempPlotter.sh vGS" );
- vecsort("eSOR", Grid);
+ vecsort("eGS", Grid);
  QProcess::startDetached("./Eplotter.sh eGS " );
  sleep(5);
 
@@ -186,7 +199,15 @@ void MainWindow::on_SOR_clicked()
        Methods::B[i][j]=Bconds::B[i][j];
      }
      }
- Methods::SOR(delta, GS, ErrTol);
+
+ time_point<steady_clock> Sstart = steady_clock::now(); //declaring start time
+
+ Methods::SOR(delta, GS,ErrTol);
+
+ time_point<steady_clock> Send = steady_clock::now(); //end time
+ milliseconds Stime = duration_cast<milliseconds>(Send-Sstart); //calculate time difference
+ cout << "The SOR method took " << Stime.count() << "ms to solve the problem." << endl;
+
  QProcess::startDetached("./TempPlotter.sh vSOR" );
  vecsort("eSOR", Grid);
  QProcess::startDetached("./Eplotter.sh eSOR " );
@@ -198,6 +219,7 @@ void MainWindow::on_SOR_clicked()
   QGraphicsView* DisplayA= new QGraphicsView(sceneA);
               sceneA->addItem(ItemA);
               DisplayA->show();
+
 
  QImage image("vSOR.png");
  QGraphicsScene* scene = new QGraphicsScene();
@@ -215,10 +237,18 @@ void MainWindow::on_Jacobi_clicked(bool checked)
        Methods::U[i][j]=Bconds::U[i][j];
        Methods::B[i][j]=Bconds::B[i][j];
      }
-     }
- Methods::Jacobi(delta, GS, ErrTol);
+     }  
+
+ time_point<steady_clock> Jstart = steady_clock::now(); //declaring start time
+
+ Methods::Jacobi(delta,GS,ErrTol);
+
+ time_point<steady_clock> Jend = steady_clock::now(); //end time
+ milliseconds Jtime = duration_cast<milliseconds>(Jend-Jstart); //calculate time difference
+ cout << "The Jacobi method took " << Jtime.count() << "ms to solve the problem." << endl;
+
  QProcess::startDetached("./TempPlotter.sh vJacobi" );
- vecsort("eSOR", Grid);
+ vecsort("eJacobi", Grid);
  QProcess::startDetached("./Eplotter.sh eJacobi " );
   sleep(5);
 
@@ -388,7 +418,6 @@ void MainWindow::on_Draw_2_clicked()
     ui->groupBox_4->setEnabled(false);
 }
 
-
 void MainWindow::on_pushButton_clicked()
 {
     ui->deltaVal->setEnabled(false);
@@ -400,34 +429,34 @@ void MainWindow::on_pushButton_clicked()
     ui->pushButton->setEnabled(false);
 }
 
-void MainWindow::on_Other_clicked()
-{
-    ui->OtherColourBox->setEnabled(true);
-    ui->groupBox_4->setEnabled(true);
-}
+ void MainWindow::on_Other_clicked()
+ {
+     ui->OtherColourBox->setEnabled(true);
+     ui->groupBox_4->setEnabled(true);
+ }
 
-void MainWindow::on_spinBox_valueChanged(int arg1)
-{
-    Bconds::rval = arg1;
-}
+ void MainWindow::on_spinBox_valueChanged(int arg1)
+ {
+     Bconds::rval = arg1;
+ }
 
-void MainWindow::on_spinBox_2_valueChanged(int arg1)
-{
-    Bconds::gval = arg1;
-}
+ void MainWindow::on_spinBox_2_valueChanged(int arg1)
+ {
+     Bconds::gval = arg1;
+ }
 
-void MainWindow::on_spinBox_3_valueChanged(int arg1)
-{
-    Bconds::bval = arg1;
-}
+ void MainWindow::on_spinBox_3_valueChanged(int arg1)
+ {
+     Bconds::bval = arg1;
+ }
 
-void MainWindow::on_doubleSpinBox_valueChanged(double arg1)
-{
-    Bconds::UV = arg1;
-}
+ void MainWindow::on_doubleSpinBox_valueChanged(double arg1)
+ {
+     Bconds::UV = arg1;
+ }
 
-void MainWindow::on_SetColour_clicked()
-{
-    colour = QColor(Bconds::rval,Bconds::gval,Bconds::bval,255);
-    ui->OtherColourBox->setEnabled(false);
-}
+ void MainWindow::on_SetColour_clicked()
+ {
+     colour = QColor(Bconds::rval,Bconds::gval,Bconds::bval,255);
+     ui->OtherColourBox->setEnabled(false);
+ }

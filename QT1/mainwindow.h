@@ -98,7 +98,6 @@ private:
     QGraphicsScene *scene;
 
 
-
 };
 
 #endif // MAINWINDOW_H

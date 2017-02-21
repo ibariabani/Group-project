@@ -1,5 +1,4 @@
 #include"Methods.h"
-#include<QString>
 
 using namespace std;
 
@@ -15,7 +14,7 @@ void Methods::Jacobi(double a, double b,double c){
  float UNew[1000][1000];                                        //Declare large array outside stack
  float Uj[1000][1000];
  double x=0,y=0, Pre=0, Post=0,Err=0, ErrTotal=10000, it=0;     //Declares all neccesary variables
- int i=0,j=0,m=0,n=0;
+ int i=0,j=0;
  double GS=b, delta=a, ErrTol=c;
  double ItMax=GS/delta;
  double Ex,Ey;
@@ -78,6 +77,7 @@ errfile.close();
 
   
   cout<<"The Jacobi Method took " << it <<" iterations to converge"<<endl;  //Outputs the number of iterations 
+
   ofstream vfile;               //Opens file to write output data to
   vfile.open("vJacobi");
   
@@ -130,7 +130,7 @@ void Methods::Gauss(double a, double b, double c){
   double GS=b, delta=a,GSErrTol=c;
   double ItMax=GS/delta;
   double x=0,y=0, Pre=0, Post=0,Err=0, ErrTotal=10000;
-  int i=0,j=0, m=0,n=0,Git=0;      //Declares all neccessary variables
+  int i=0,j=0,Git=0;      //Declares all neccessary variables
   double Ex,Ey;
 
   for(i=0; i<=ItMax; i++){
@@ -238,7 +238,7 @@ errfile.close();
 
 void Methods::SOR(double a, double b,double c){
    float Us[1000][1000];
-   double resid=0,x=0,y=0, ErrTotal=10000, InitErr=0, omega=0, Pre=0, Post=0,err=0, Uold=0;
+   double resid=0,x=0,y=0, ErrTotal=10000, omega=0, Uold=0;
   int n=0,i=0,j=0;       //PDE coefficients set to solve Poisson's equation as it is for this potential problem
   double GS=b, delta=a ,ErrTol=c;
   double ItMax=GS/delta;

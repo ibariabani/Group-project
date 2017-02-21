@@ -4,7 +4,7 @@
 
 
 void vecsort(char* name, int size);
-
+double MagAv(char* name);
 
 
 #endif // SORTVEC_H

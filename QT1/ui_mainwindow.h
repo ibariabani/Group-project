@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.8.0
+** Created by: Qt User Interface Compiler version 5.6.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -360,25 +360,25 @@ public:
         OtherColourBox->setGeometry(QRect(10, 420, 191, 161));
         spinBox = new QSpinBox(OtherColourBox);
         spinBox->setObjectName(QStringLiteral("spinBox"));
-        spinBox->setGeometry(QRect(50, 30, 48, 26));
+        spinBox->setGeometry(QRect(37, 30, 61, 26));
         spinBox->setMaximum(255);
         spinBox_2 = new QSpinBox(OtherColourBox);
         spinBox_2->setObjectName(QStringLiteral("spinBox_2"));
-        spinBox_2->setGeometry(QRect(50, 60, 48, 26));
+        spinBox_2->setGeometry(QRect(37, 60, 61, 26));
         spinBox_2->setMaximum(255);
         spinBox_3 = new QSpinBox(OtherColourBox);
         spinBox_3->setObjectName(QStringLiteral("spinBox_3"));
-        spinBox_3->setGeometry(QRect(50, 90, 48, 26));
+        spinBox_3->setGeometry(QRect(37, 90, 61, 26));
         spinBox_3->setMaximum(255);
         label_17 = new QLabel(OtherColourBox);
         label_17->setObjectName(QStringLiteral("label_17"));
-        label_17->setGeometry(QRect(20, 30, 31, 20));
+        label_17->setGeometry(QRect(10, 30, 31, 20));
         label_18 = new QLabel(OtherColourBox);
         label_18->setObjectName(QStringLiteral("label_18"));
-        label_18->setGeometry(QRect(20, 60, 31, 20));
+        label_18->setGeometry(QRect(10, 60, 31, 20));
         label_19 = new QLabel(OtherColourBox);
         label_19->setObjectName(QStringLiteral("label_19"));
-        label_19->setGeometry(QRect(20, 90, 31, 20));
+        label_19->setGeometry(QRect(10, 90, 31, 20));
         label_20 = new QLabel(OtherColourBox);
         label_20->setObjectName(QStringLiteral("label_20"));
         label_20->setGeometry(QRect(100, 70, 31, 20));
@@ -410,7 +410,7 @@ public:
         OtherColourBox->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 841, 22));
+        menuBar->setGeometry(QRect(0, 0, 841, 27));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -426,48 +426,48 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
-        GaussSeidell->setText(QApplication::translate("MainWindow", "Gauss-Siedell", Q_NULLPTR));
-        Jacobi->setText(QApplication::translate("MainWindow", "Jacobi", Q_NULLPTR));
-        SOR->setText(QApplication::translate("MainWindow", "SOR", Q_NULLPTR));
-        groupBox->setTitle(QApplication::translate("MainWindow", "  Step Size         Error Tolerance", Q_NULLPTR));
-        label_2->setText(QApplication::translate("MainWindow", "Boundary Coords", Q_NULLPTR));
-        groupBox_2->setTitle(QApplication::translate("MainWindow", "Problem", Q_NULLPTR));
-        Problem1->setText(QApplication::translate("MainWindow", "Problem1", Q_NULLPTR));
-        Problem2->setText(QApplication::translate("MainWindow", "Problem2", Q_NULLPTR));
-        UD->setText(QApplication::translate("MainWindow", "User Defined", Q_NULLPTR));
-        groupBox_3->setTitle(QApplication::translate("MainWindow", "Colour", Q_NULLPTR));
-        red->setText(QApplication::translate("MainWindow", "Red", Q_NULLPTR));
-        green->setText(QApplication::translate("MainWindow", "Green", Q_NULLPTR));
-        black->setText(QApplication::translate("MainWindow", "Black", Q_NULLPTR));
-        Other->setText(QApplication::translate("MainWindow", "Other", Q_NULLPTR));
-        groupBox_4->setTitle(QApplication::translate("MainWindow", "Shape", Q_NULLPTR));
-        circle->setText(QApplication::translate("MainWindow", "Circle", Q_NULLPTR));
-        line->setText(QApplication::translate("MainWindow", "Line", Q_NULLPTR));
-        rectangle->setText(QApplication::translate("MainWindow", "Rectangle", Q_NULLPTR));
-        Draw->setText(QApplication::translate("MainWindow", "Draw", Q_NULLPTR));
-        Draw_2->setText(QApplication::translate("MainWindow", "Done Drawing", Q_NULLPTR));
-        Circlegroup->setTitle(QApplication::translate("MainWindow", "CIrcle", Q_NULLPTR));
-        label_3->setText(QApplication::translate("MainWindow", "Centre X:", Q_NULLPTR));
-        label_4->setText(QApplication::translate("MainWindow", "Centre Y:", Q_NULLPTR));
-        label_9->setText(QApplication::translate("MainWindow", "Radius:", Q_NULLPTR));
-        Linegroup->setTitle(QApplication::translate("MainWindow", "Line", Q_NULLPTR));
-        label_8->setText(QApplication::translate("MainWindow", "Start Y:", Q_NULLPTR));
-        label_11->setText(QApplication::translate("MainWindow", "End Y:", Q_NULLPTR));
-        label_10->setText(QApplication::translate("MainWindow", "End X:", Q_NULLPTR));
-        label_7->setText(QApplication::translate("MainWindow", "Start X:", Q_NULLPTR));
-        Rectanglegroup->setTitle(QApplication::translate("MainWindow", "Rectangle", Q_NULLPTR));
-        label_16->setText(QApplication::translate("MainWindow", "Bottom Right Y:", Q_NULLPTR));
-        label_15->setText(QApplication::translate("MainWindow", "Top Left Y:", Q_NULLPTR));
-        label_12->setText(QApplication::translate("MainWindow", "Bottom Right X:", Q_NULLPTR));
-        label_14->setText(QApplication::translate("MainWindow", "Top Left X:", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("MainWindow", "Set", Q_NULLPTR));
-        OtherColourBox->setTitle(QApplication::translate("MainWindow", "Other Colour", Q_NULLPTR));
-        label_17->setText(QApplication::translate("MainWindow", "R:", Q_NULLPTR));
-        label_18->setText(QApplication::translate("MainWindow", "G:", Q_NULLPTR));
-        label_19->setText(QApplication::translate("MainWindow", "B:", Q_NULLPTR));
-        label_20->setText(QApplication::translate("MainWindow", "V:", Q_NULLPTR));
-        SetColour->setText(QApplication::translate("MainWindow", "Set Colour", Q_NULLPTR));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
+        GaussSeidell->setText(QApplication::translate("MainWindow", "Gauss-Siedell", 0));
+        Jacobi->setText(QApplication::translate("MainWindow", "Jacobi", 0));
+        SOR->setText(QApplication::translate("MainWindow", "SOR", 0));
+        groupBox->setTitle(QApplication::translate("MainWindow", "  Step Size         Error Tolerance", 0));
+        label_2->setText(QApplication::translate("MainWindow", "Boundary Coords", 0));
+        groupBox_2->setTitle(QApplication::translate("MainWindow", "Problem", 0));
+        Problem1->setText(QApplication::translate("MainWindow", "Problem1", 0));
+        Problem2->setText(QApplication::translate("MainWindow", "Problem2", 0));
+        UD->setText(QApplication::translate("MainWindow", "User Defined", 0));
+        groupBox_3->setTitle(QApplication::translate("MainWindow", "Colour", 0));
+        red->setText(QApplication::translate("MainWindow", "Red", 0));
+        green->setText(QApplication::translate("MainWindow", "Green", 0));
+        black->setText(QApplication::translate("MainWindow", "Black", 0));
+        Other->setText(QApplication::translate("MainWindow", "Other", 0));
+        groupBox_4->setTitle(QApplication::translate("MainWindow", "Shape", 0));
+        circle->setText(QApplication::translate("MainWindow", "Circle", 0));
+        line->setText(QApplication::translate("MainWindow", "Line", 0));
+        rectangle->setText(QApplication::translate("MainWindow", "Rectangle", 0));
+        Draw->setText(QApplication::translate("MainWindow", "Draw", 0));
+        Draw_2->setText(QApplication::translate("MainWindow", "Done Drawing", 0));
+        Circlegroup->setTitle(QApplication::translate("MainWindow", "CIrcle", 0));
+        label_3->setText(QApplication::translate("MainWindow", "Centre X:", 0));
+        label_4->setText(QApplication::translate("MainWindow", "Centre Y:", 0));
+        label_9->setText(QApplication::translate("MainWindow", "Radius:", 0));
+        Linegroup->setTitle(QApplication::translate("MainWindow", "Line", 0));
+        label_8->setText(QApplication::translate("MainWindow", "Start Y:", 0));
+        label_11->setText(QApplication::translate("MainWindow", "End Y:", 0));
+        label_10->setText(QApplication::translate("MainWindow", "End X:", 0));
+        label_7->setText(QApplication::translate("MainWindow", "Start X:", 0));
+        Rectanglegroup->setTitle(QApplication::translate("MainWindow", "Rectangle", 0));
+        label_16->setText(QApplication::translate("MainWindow", "Bottom Right Y:", 0));
+        label_15->setText(QApplication::translate("MainWindow", "Top Left Y:", 0));
+        label_12->setText(QApplication::translate("MainWindow", "Bottom Right X:", 0));
+        label_14->setText(QApplication::translate("MainWindow", "Top Left X:", 0));
+        pushButton->setText(QApplication::translate("MainWindow", "Set", 0));
+        OtherColourBox->setTitle(QApplication::translate("MainWindow", "Other Colour", 0));
+        label_17->setText(QApplication::translate("MainWindow", "R:", 0));
+        label_18->setText(QApplication::translate("MainWindow", "G:", 0));
+        label_19->setText(QApplication::translate("MainWindow", "B:", 0));
+        label_20->setText(QApplication::translate("MainWindow", "V:", 0));
+        SetColour->setText(QApplication::translate("MainWindow", "Set Colour", 0));
     } // retranslateUi
 
 };
