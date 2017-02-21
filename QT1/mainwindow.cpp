@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include"Bcond.h"
 #include"Methods.h"
-#include"sortvec.h"
 #include"QProcess"
 #include"QPixmap"
 #include"QImage"
@@ -15,13 +14,17 @@
 #include"QApplication"
 #include"QPainter"
 #include <unistd.h>
+#include<QString>
+#include"sortvec.h"
+
 using namespace std;
 
 double delta=0.01, GS=3, ErrTol=0.01, radius=0, cx=0, cy=0, l1x=0, l1y=0, l2x=0, l2y=0, tlx=0, tly=0, brx=0, bry=0;
-int Grid=int(GS/delta);
 bool p1=false,p2=false,p3=false;
 QColor colour;
 int shape=0;
+int Grid=int(GS/delta);
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -69,6 +72,7 @@ void MainWindow::on_Problem1_clicked()
     Bconds::Problem1(delta, GS);
     QProcess::startDetached("./TempPlotter.sh vAnalytical1");
     sleep(5);
+
     QImage image("vAnalytical1.png");
 
             QGraphicsScene* scene = new QGraphicsScene();
@@ -132,7 +136,7 @@ void MainWindow::on_UD_clicked()
     p1=false;
     p2=false;
     p3=true;
-    QPixmap pixmap(QSize(300,300));
+    QPixmap pixmap(QSize(301,301));
     QPainter painter(&pixmap);
     pixmap.fill(Qt::white);
     pixmap.save("test1.png", "PNG", 100);
@@ -159,18 +163,18 @@ void MainWindow::on_GaussSeidell_clicked()
  QProcess::startDetached("./Eplotter.sh eGS " );
  sleep(5);
 
- QImage image("eGS.png");
- QGraphicsScene* scene = new QGraphicsScene();
- QGraphicsPixmapItem* Item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
- QGraphicsView* DisplayC= new QGraphicsView(scene);
-             scene->addItem(Item);
-             DisplayC->show();
-
- QImage imageC("vGS.png");
+ QImage imageC("eGS.png");
  QGraphicsScene* sceneC = new QGraphicsScene();
  QGraphicsPixmapItem* ItemC = new QGraphicsPixmapItem(QPixmap::fromImage(imageC));
- QGraphicsView* Display2= new QGraphicsView(sceneC);
+ QGraphicsView* DisplayC= new QGraphicsView(sceneC);
              sceneC->addItem(ItemC);
+             DisplayC->show();
+
+ QImage image("vGS.png");
+ QGraphicsScene* scene = new QGraphicsScene();
+ QGraphicsPixmapItem* Item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
+ QGraphicsView* Display2= new QGraphicsView(scene);
+             scene->addItem(Item);
              Display2->show();
 }
 
@@ -194,7 +198,6 @@ void MainWindow::on_SOR_clicked()
   QGraphicsView* DisplayA= new QGraphicsView(sceneA);
               sceneA->addItem(ItemA);
               DisplayA->show();
-
 
  QImage image("vSOR.png");
  QGraphicsScene* scene = new QGraphicsScene();
@@ -385,10 +388,6 @@ void MainWindow::on_Draw_2_clicked()
     ui->groupBox_4->setEnabled(false);
 }
 
-void MainWindow::on_HorizLinear_6_valueChanged(double arg1)
-{
-    //V0 = arg1;
-}
 
 void MainWindow::on_pushButton_clicked()
 {
@@ -399,4 +398,36 @@ void MainWindow::on_pushButton_clicked()
     ui->GaussSeidell->setEnabled(true);
     ui->SOR->setEnabled(true);
     ui->pushButton->setEnabled(false);
+}
+
+void MainWindow::on_Other_clicked()
+{
+    ui->OtherColourBox->setEnabled(true);
+    ui->groupBox_4->setEnabled(true);
+}
+
+void MainWindow::on_spinBox_valueChanged(int arg1)
+{
+    Bconds::rval = arg1;
+}
+
+void MainWindow::on_spinBox_2_valueChanged(int arg1)
+{
+    Bconds::gval = arg1;
+}
+
+void MainWindow::on_spinBox_3_valueChanged(int arg1)
+{
+    Bconds::bval = arg1;
+}
+
+void MainWindow::on_doubleSpinBox_valueChanged(double arg1)
+{
+    Bconds::UV = arg1;
+}
+
+void MainWindow::on_SetColour_clicked()
+{
+    colour = QColor(Bconds::rval,Bconds::gval,Bconds::bval,255);
+    ui->OtherColourBox->setEnabled(false);
 }

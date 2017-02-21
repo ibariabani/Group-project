@@ -1,4 +1,5 @@
 #include"Methods.h"
+#include<QString>
 
 using namespace std;
 
@@ -13,7 +14,7 @@ void Methods::Jacobi(double a, double b,double c){
   
  float UNew[1000][1000];                                        //Declare large array outside stack
  float Uj[1000][1000];
- double x=0,y=0, Pre=0, Post=0,Err=0, it=0, ErrTotal=10000;     //Declares all neccesary variables
+ double x=0,y=0, Pre=0, Post=0,Err=0, ErrTotal=10000, it=0;     //Declares all neccesary variables
  int i=0,j=0,m=0,n=0;
  double GS=b, delta=a, ErrTol=c;
  double ItMax=GS/delta;
@@ -77,7 +78,6 @@ errfile.close();
 
   
   cout<<"The Jacobi Method took " << it <<" iterations to converge"<<endl;  //Outputs the number of iterations 
-
   ofstream vfile;               //Opens file to write output data to
   vfile.open("vJacobi");
   

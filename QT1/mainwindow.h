@@ -14,7 +14,6 @@ class MainWindow : public QMainWindow
 
 public:
 
-     //QGraphicsView *view;
 
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
@@ -78,16 +77,26 @@ private slots:
 
     void on_Draw_2_clicked();
 
-    void on_HorizLinear_6_valueChanged(double arg1);
-
     void on_pushButton_clicked();
+
+    void on_Other_clicked();
+
+    void on_spinBox_valueChanged(int arg1);
+
+    void on_spinBox_2_valueChanged(int arg1);
+
+    void on_spinBox_3_valueChanged(int arg1);
+
+    void on_doubleSpinBox_valueChanged(double arg1);
+
+    void on_SetColour_clicked();
 
 private:
     Ui::MainWindow *ui;
     QPixmap image;
     QImage  *imageObject;
     QGraphicsScene *scene;
-    //QLabel *shapeLabel;
+
 
 
 };

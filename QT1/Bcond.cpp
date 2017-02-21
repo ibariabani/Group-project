@@ -9,7 +9,10 @@ using namespace std;
 double Bconds:: U[1000][1000];
 bool Bconds:: B[1000][1000];
 int h=0, w=0;
-
+int Bconds:: rval;
+int Bconds:: gval;
+int Bconds:: bval;
+double Bconds:: UV;
 
 void Bconds::Problem1(double a, double b){
 
@@ -34,7 +37,7 @@ cin>>V0;
          U[i][j]=V0;                    //Slight inaccuray due to the inexact nature of the x and y coordinate conversion
      B[i][j]=true;
          }
-       else if (r<=r1){
+       else if (r<r1 || r>r2){
      U[i][j]=0;                 // Otherwise set the value to zero for the Gauss to work on
      B[i][j]=true;
      }
@@ -54,8 +57,11 @@ file.open("vAnalytical1");
       y=(j-(ItMax/2))*delta;
       r = sqrt(pow(x,2) + pow(y,2));    //Calculates the radius of each point
 
-      if( (r>r2 || r<r1)){          //If the point lies outwith the larger sphere, or within the inner sphere, set=0
+      if(r<r1){          //If the point lies outwith the larger sphere, or within the inner sphere, set=0
         V=0;
+      }
+      else if(r>=r2){
+          V=V0;
       }
       else{                       //Otherwise use the derived analytical solution
         V = ((V0/log(r2/r1))*log(r)) - ((V0*log(r1))/(log(r2/r1)));
@@ -153,7 +159,7 @@ void Bconds::ud(double a, double b){
     h=img.height();
     w=img.width();
 
-
+cout << "rval " << rval << " gval " << gval << " bval " << bval << " UV " << UV <<endl;
     if ( false == img.isNull() )
     {
         QVector<QRgb> v = img.colorTable();
@@ -180,6 +186,14 @@ void Bconds::ud(double a, double b){
                 {
                     U[i][j2] = -V0;
                     B[i][j2] = true;
+                }
+
+                else if (clrCurrent.red() == rval && clrCurrent.green() == gval && clrCurrent.blue() == bval)
+                {
+                    U[i][j2] = UV;
+                    B[i][j2] = true;
+
+                    cout << "i= " << i << " j2= " << j2 << endl;
                 }
 
                 else if (clrCurrent.red() == 255 && clrCurrent.green() == 255 && clrCurrent.blue() == 255)

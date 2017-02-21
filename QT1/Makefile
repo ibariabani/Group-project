@@ -33,7 +33,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = QTTest1.0.0
-DISTDIR = /home/seb/Documents/Group\ Project/Rough\ Code/QT7/.tmp/QTTest1.0.0
+DISTDIR = /home/seb/Documents/Group\ Project/Rough\ Code/QT8/.tmp/QTTest1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/seb/Qt/5.8/gcc_64/lib
 LIBS          = $(SUBLIBS) -L/home/seb/Qt/5.8/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
@@ -59,7 +59,8 @@ OBJECTS       = main.o \
 		Methods.o \
 		sortvec.o \
 		moc_mainwindow.o
-DIST          = ../../../../Qt/5.8/gcc_64/mkspecs/features/spec_pre.prf \
+DIST          = Eplotter.sh \
+		../../../../Qt/5.8/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.8/gcc_64/mkspecs/common/unix.conf \
 		../../../../Qt/5.8/gcc_64/mkspecs/common/linux.conf \
 		../../../../Qt/5.8/gcc_64/mkspecs/common/sanitize.conf \
@@ -209,7 +210,6 @@ DIST          = ../../../../Qt/5.8/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.8/gcc_64/mkspecs/features/qt_config.prf \
 		../../../../Qt/5.8/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../../../Qt/5.8/gcc_64/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		../../../../Qt/5.8/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt/5.8/gcc_64/mkspecs/features/toolchain.prf \
 		../../../../Qt/5.8/gcc_64/mkspecs/features/default_pre.prf \
@@ -398,7 +398,6 @@ Makefile: QTTest.pro ../../../../Qt/5.8/gcc_64/mkspecs/linux-g++/qmake.conf ../.
 		../../../../Qt/5.8/gcc_64/mkspecs/features/qt_config.prf \
 		../../../../Qt/5.8/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../../../Qt/5.8/gcc_64/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		../../../../Qt/5.8/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt/5.8/gcc_64/mkspecs/features/toolchain.prf \
 		../../../../Qt/5.8/gcc_64/mkspecs/features/default_pre.prf \
@@ -573,7 +572,6 @@ Makefile: QTTest.pro ../../../../Qt/5.8/gcc_64/mkspecs/linux-g++/qmake.conf ../.
 ../../../../Qt/5.8/gcc_64/mkspecs/features/qt_config.prf:
 ../../../../Qt/5.8/gcc_64/mkspecs/linux-g++/qmake.conf:
 ../../../../Qt/5.8/gcc_64/mkspecs/features/spec_post.prf:
-.qmake.stash:
 ../../../../Qt/5.8/gcc_64/mkspecs/features/exclusive_builds.prf:
 ../../../../Qt/5.8/gcc_64/mkspecs/features/toolchain.prf:
 ../../../../Qt/5.8/gcc_64/mkspecs/features/default_pre.prf:
@@ -973,7 +971,7 @@ moc_mainwindow.cpp: ../../../../Qt/5.8/gcc_64/include/QtWidgets/QMainWindow \
 		mainwindow.h \
 		moc_predefs.h \
 		../../../../Qt/5.8/gcc_64/bin/moc
-	/home/seb/Qt/5.8/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/seb/Qt/5.8/gcc_64/mkspecs/linux-g++ -I'/home/seb/Documents/Group Project/Rough Code/QT7' -I/home/seb/Qt/5.8/gcc_64/include -I/home/seb/Qt/5.8/gcc_64/include/QtWidgets -I/home/seb/Qt/5.8/gcc_64/include/QtGui -I/home/seb/Qt/5.8/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
+	/home/seb/Qt/5.8/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/seb/Qt/5.8/gcc_64/mkspecs/linux-g++ -I'/home/seb/Documents/Group Project/Rough Code/QT8' -I/home/seb/Qt/5.8/gcc_64/include -I/home/seb/Qt/5.8/gcc_64/include/QtWidgets -I/home/seb/Qt/5.8/gcc_64/include/QtGui -I/home/seb/Qt/5.8/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1680,14 +1678,16 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../../Qt/5.8/gcc_64/include/QtWidgets/qabstractbutton.h \
 		../../../../Qt/5.8/gcc_64/include/QtWidgets/QRadioButton \
 		../../../../Qt/5.8/gcc_64/include/QtWidgets/qradiobutton.h \
+		../../../../Qt/5.8/gcc_64/include/QtWidgets/QSpinBox \
 		../../../../Qt/5.8/gcc_64/include/QtWidgets/QStatusBar \
 		../../../../Qt/5.8/gcc_64/include/QtWidgets/qstatusbar.h \
+		../../../../Qt/5.8/gcc_64/include/QtWidgets/QTextEdit \
+		../../../../Qt/5.8/gcc_64/include/QtWidgets/qtextedit.h \
 		../../../../Qt/5.8/gcc_64/include/QtWidgets/QToolBar \
 		../../../../Qt/5.8/gcc_64/include/QtWidgets/qtoolbar.h \
 		../../../../Qt/5.8/gcc_64/include/QtWidgets/QWidget \
 		Bcond.h \
 		Methods.h \
-		sortvec.h \
 		../../../../Qt/5.8/gcc_64/include/QtCore/QProcess \
 		../../../../Qt/5.8/gcc_64/include/QtGui/QPixmap \
 		../../../../Qt/5.8/gcc_64/include/QtWidgets/QGraphicsScene \
@@ -1756,7 +1756,6 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../../Qt/5.8/gcc_64/include/QtWidgets/qmouseeventtransition.h \
 		../../../../Qt/5.8/gcc_64/include/QtWidgets/qopenglwidget.h \
 		../../../../Qt/5.8/gcc_64/include/QtWidgets/qplaintextedit.h \
-		../../../../Qt/5.8/gcc_64/include/QtWidgets/qtextedit.h \
 		../../../../Qt/5.8/gcc_64/include/QtWidgets/qprogressbar.h \
 		../../../../Qt/5.8/gcc_64/include/QtWidgets/qprogressdialog.h \
 		../../../../Qt/5.8/gcc_64/include/QtWidgets/qproxystyle.h \
@@ -1794,7 +1793,9 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../../Qt/5.8/gcc_64/include/QtWidgets/qwidgetaction.h \
 		../../../../Qt/5.8/gcc_64/include/QtWidgets/qwizard.h \
 		../../../../Qt/5.8/gcc_64/include/QtWidgets/qtwidgetsversion.h \
-		../../../../Qt/5.8/gcc_64/include/QtGui/QPainter
+		../../../../Qt/5.8/gcc_64/include/QtGui/QPainter \
+		../../../../Qt/5.8/gcc_64/include/QtCore/QString \
+		sortvec.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 Bcond.o: Bcond.cpp Bcond.h \
@@ -2124,7 +2125,37 @@ Bcond.o: Bcond.cpp Bcond.h \
 		../../../../Qt/5.8/gcc_64/include/QtGui/qtguiversion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Bcond.o Bcond.cpp
 
-Methods.o: Methods.cpp Methods.h
+Methods.o: Methods.cpp Methods.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/QString \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qstring.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qchar.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qglobal.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qconfig.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qtcore-config.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qsysinfo.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qlogging.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qflags.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qtypetraits.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qatomic.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qmutex.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qnumeric.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qversiontagging.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qbytearray.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qrefcount.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qnamespace.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qarraydata.h \
+		../../../../Qt/5.8/gcc_64/include/QtCore/qstringbuilder.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Methods.o Methods.cpp
 
 sortvec.o: sortvec.cpp 

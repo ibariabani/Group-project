@@ -14,6 +14,8 @@ static void ud(double a, double b);
 static double U[1000][1000];
 static double a,b;
 static bool B[1000][1000];
+static int rval,gval,bval;
+static double UV;
 
 };
 
