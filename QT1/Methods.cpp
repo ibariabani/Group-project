@@ -25,7 +25,7 @@ void Methods::Jacobi(double a, double b,double c){
     }
   } 
 
- ofstream errfile("dJacobi");
+ //ofstream errfile("dJacobi");
 
  
   while (ErrTotal>ErrTol){        //While the error on each iteration is greater than the error tolerance
@@ -70,10 +70,10 @@ void Methods::Jacobi(double a, double b,double c){
      }
     it++;    //Adds to the iteration counter (Times iterated over whole grid)
 
-    errfile << it << "\t" << ErrTotal << endl;
+    //errfile << it << "\t" << ErrTotal << endl;
 }
 
-errfile.close();
+//errfile.close();
 
   
   cout<<"The Jacobi Method took " << it <<" iterations to converge"<<endl;  //Outputs the number of iterations 
@@ -139,7 +139,7 @@ void Methods::Gauss(double a, double b, double c){
     }
   }
 
-   ofstream errfile("dGS");
+   //ofstream errfile("dGS");
   
   while (ErrTotal>GSErrTol){         //iterates while the cumalitive error is larger than the tolerance required
     ErrTotal=0;                        //Resets the cumalitive error to zero
@@ -178,9 +178,9 @@ void Methods::Gauss(double a, double b, double c){
    }
    Git++;      //Increases iteration counter after every full grid iteration
 
-   errfile << Git << "\t" << ErrTotal << endl;
+   //errfile << Git << "\t" << ErrTotal << endl;
  }
-errfile.close();
+//errfile.close();
 
  
   cout<< "Gauss Siedell took "<<Git<<" iterations to converge"<< endl;  //Outputs 
@@ -251,7 +251,7 @@ void Methods::SOR(double a, double b,double c){
     }
   }
 
-ofstream errfile("dSOR");   
+//ofstream errfile("dSOR");
                                      
    while (ErrTotal>ErrTol){            //Iterates whilst the cumalitive error on each full grid iteration is above the tolerance
      ErrTotal=0;                                  //resets the error to 0 for each new full grid iteration
@@ -302,8 +302,10 @@ ofstream errfile("dSOR");
 	    
       }
     }
-   errfile << n << "\t" << ErrTotal << endl;
+   //errfile << n << "\t" << ErrTotal << endl;
    }
+
+   //errfile.close();
 
    cout<<"The SOR method took " << n << " iterations to converge to the desired accuracy"<<endl;      //Outputs iterations required
 
