@@ -38,7 +38,7 @@ void vecsort(char* name, int size) {
   double xmin,ymin,delta;
   int n=0,j,l;
   double magav = MagAv(name);
-  int interval = (int) size/60;
+  int interval = (int) size/60; //check if not work, 60 is the number of arrows in both directions, change for more or less arrows
 
   ifstream eFile(name);
   ofstream eSort("plotvec.dat");
@@ -52,12 +52,12 @@ void vecsort(char* name, int size) {
     if (!n) {
       xmin = x;
       ymin = y;
-      delta = -2.*xmin/size;
+      delta = -2.*xmin/size; //check if not work
       n++;
     }
     
-    j = (int) (x-xmin)/delta;
-    l = (int) (y-ymin)/delta;
+    j = (int) (x-xmin)/delta; //check if not work
+    l = (int) (y-ymin)/delta; //check if not work
 
     mag = 0;
     exn = 0;
@@ -67,11 +67,11 @@ void vecsort(char* name, int size) {
 
       mag = sqrt(ex*ex + ey*ey);
       
-      exn = ex/mag/15;
-      eyn = ey/mag/15;
+      exn = ex/mag/15; //15 is to make the arrows smaller, change if they are too big or too small
+      eyn = ey/mag/15; //15 is to make the arrows smaller, change if they are too big or too small
     }
     if (mag >= magav/10) {
-      if ( !(j % interval) && !(l % interval) )
+      if ( !(j % interval) && !(l % interval) ) //check if not work
         eSort << x << "\t" << y << "\t" << exn << "\t" << eyn << "\t" << mag << endl;
 
     }
