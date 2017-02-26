@@ -35,8 +35,10 @@ double MagAv(char* name){
 void vecsort(char* name, int size) {
 
   double x,y,ex,ey,mag,exn,eyn;
-
+  double xmin,ymin,delta;
+  int n=0,j,l;
   double magav = MagAv(name);
+  int interval = (int) size/60;
 
   ifstream eFile(name);
   ofstream eSort("plotvec.dat");
@@ -46,6 +48,16 @@ void vecsort(char* name, int size) {
     eFile >> y;
     eFile >> ex;
     eFile >> ey;
+    
+    if (!n) {
+      xmin = x;
+      ymin = y;
+      delta = -2.*xmin/size;
+      n++;
+    }
+    
+    j = (int) (x-xmin)/delta;
+    l = (int) (y-ymin)/delta;
 
     mag = 0;
     exn = 0;
@@ -59,7 +71,7 @@ void vecsort(char* name, int size) {
       eyn = ey/mag/15;
     }
     if (mag >= magav/10) {
-      if ( !(((int)(size*x))%(size/10)) && !(((int)(size*y))%(size/10)) )
+      if ( !(j % interval) && !(l % interval) )
         eSort << x << "\t" << y << "\t" << exn << "\t" << eyn << "\t" << mag << endl;
 
     }
