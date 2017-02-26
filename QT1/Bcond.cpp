@@ -73,7 +73,31 @@ file.open("vAnalytical1");
    file<<"\n";
  }
 
-
+ofstream eFile("eAnalytical1");
+  for(int k=0; k<=ItMax; k++) {
+    x = (k - (ItMax/2)) * delta;
+    for(int m=0; m<=ItMax; m++) {
+      y = (m - (ItMax/2)) * delta;
+      if (k == 0) {
+	Ex = (Uj[k][m] - Uj[k+1][m]) / (delta);
+      } else if (k == ItMax) {
+	Ex = (Uj[k-1][m] - Uj[k][m]) / (delta);
+      } else {
+	Ex = (Uj[k-1][m] - Uj[k+1][m]) / (2*delta);
+      }
+      if (m == 0) {
+	Ey = (Uj[k][m] - Uj[k][m+1]) / (delta);
+      } else if (m == ItMax) {
+	Ey = (Uj[k][m-1] - Uj[k][m]) / (delta);
+      } else {
+	Ey = (Uj[k][m-1] - Uj[k][m+1]) / (2*delta);
+      }
+      eFile << x << "\t" << y << "\t" << Ex << "\t" << Ey << "\n";
+    }
+  }
+  eFile.close();
+  
+  QProcess::startDetached("./Eplotter.sh eAnalytical1 " );
  }
 
 
@@ -147,8 +171,34 @@ void Bconds::Problem2(double a, double b){
    }
    file<<"\n";                            //insert vertical tab
  }
- file.close();                           //close file
+ file.close(); //close file
 
+  ofstream eFile("eAnalytical2");
+  for(int k=0; k<=ItMax; k++) {
+    x = (k - (ItMax/2)) * delta;
+    for(int m=0; m<=ItMax; m++) {
+      y = (m - (ItMax/2)) * delta;
+      if (k == 0) {
+	Ex = (Uj[k][m] - Uj[k+1][m]) / (delta);
+      } else if (k == ItMax) {
+	Ex = (Uj[k-1][m] - Uj[k][m]) / (delta);
+      } else {
+	Ex = (Uj[k-1][m] - Uj[k+1][m]) / (2*delta);
+      }
+      if (m == 0) {
+	Ey = (Uj[k][m] - Uj[k][m+1]) / (delta);
+      } else if (m == ItMax) {
+	Ey = (Uj[k][m-1] - Uj[k][m]) / (delta);
+      } else {
+	Ey = (Uj[k][m-1] - Uj[k][m+1]) / (2*delta);
+      }
+      eFile << x << "\t" << y << "\t" << Ex << "\t" << Ey << "\n";
+    }
+  }
+  eFile.close();
+  
+  QProcess::startDetached("./Eplotter.sh eAnalytical2" );
+  
 }
 
 void Bconds::ud(double a, double b){
