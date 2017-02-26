@@ -4,6 +4,7 @@
 #include <QRgb>
 #include<iostream>
 #include"mainwindow.h"
+#include"sortvec.h"
 using namespace std;
 
 double Bconds:: U[1000][1000];
@@ -17,7 +18,7 @@ double Bconds:: UV;
 
 void Bconds::Problem1(double a, double b){
 
-  double GS=b, delta=a,r=0,r1=0.5,r2=1.4, V=0,V0=10,x=0,y=0;
+  double GS=b, delta=a,r=0,r1=0.5,r2=1.4, V=0,V0=10,x=0,y=0, Ex, Ey;
   double ItMax=GS/delta;
 
 /*cout<< "Please enter the radius of the inner sphere"<<endl;
@@ -79,18 +80,18 @@ ofstream eFile("eAnalytical1");
     for(int m=0; m<=ItMax; m++) {
       y = (m - (ItMax/2)) * delta;
       if (k == 0) {
-	Ex = (Uj[k][m] - Uj[k+1][m]) / (delta);
+    Ex = (U[k][m] - U[k+1][m]) / (delta);
       } else if (k == ItMax) {
-	Ex = (Uj[k-1][m] - Uj[k][m]) / (delta);
+    Ex = (U[k-1][m] - U[k][m]) / (delta);
       } else {
-	Ex = (Uj[k-1][m] - Uj[k+1][m]) / (2*delta);
+    Ex = (U[k-1][m] - U[k+1][m]) / (2*delta);
       }
       if (m == 0) {
-	Ey = (Uj[k][m] - Uj[k][m+1]) / (delta);
+    Ey = (U[k][m] - U[k][m+1]) / (delta);
       } else if (m == ItMax) {
-	Ey = (Uj[k][m-1] - Uj[k][m]) / (delta);
+    Ey = (U[k][m-1] - U[k][m]) / (delta);
       } else {
-	Ey = (Uj[k][m-1] - Uj[k][m+1]) / (2*delta);
+    Ey = (U[k][m-1] - U[k][m+1]) / (2*delta);
       }
       eFile << x << "\t" << y << "\t" << Ex << "\t" << Ey << "\n";
     }
@@ -102,7 +103,7 @@ ofstream eFile("eAnalytical1");
 
 
 void Bconds::Problem2(double a, double b){
-  double sr=0.5, V0=10, V=0, d=3, x=0,y=0,r=0;
+  double sr=0.5, V0=10, V=0, d=3, x=0,y=0,r=0, Ex, Ey;
   int i=0,j=0;
   double GS=b, delta=a;
   double ItMax=GS/delta;
@@ -164,6 +165,12 @@ void Bconds::Problem2(double a, double b){
      if(sr>r){                             //If point within the sphere set to ground
        V=0;
      }
+     else if(r>d && x>0){
+         V=-V0;
+     }
+     else if(r>d && x<0){
+         V=V0;
+     }
      else{                                 //Otherwise use the analytical solution
        V = -(V0)*(2*x/d)*(1 - (pow(sr,3)/pow(r,3)));
      }
@@ -179,24 +186,24 @@ void Bconds::Problem2(double a, double b){
     for(int m=0; m<=ItMax; m++) {
       y = (m - (ItMax/2)) * delta;
       if (k == 0) {
-	Ex = (Uj[k][m] - Uj[k+1][m]) / (delta);
+    Ex = (U[k][m] - U[k+1][m]) / (delta);
       } else if (k == ItMax) {
-	Ex = (Uj[k-1][m] - Uj[k][m]) / (delta);
+    Ex = (U[k-1][m] - U[k][m]) / (delta);
       } else {
-	Ex = (Uj[k-1][m] - Uj[k+1][m]) / (2*delta);
+    Ex = (U[k-1][m] - U[k+1][m]) / (2*delta);
       }
       if (m == 0) {
-	Ey = (Uj[k][m] - Uj[k][m+1]) / (delta);
+    Ey = (U[k][m] - U[k][m+1]) / (delta);
       } else if (m == ItMax) {
-	Ey = (Uj[k][m-1] - Uj[k][m]) / (delta);
+    Ey = (U[k][m-1] - U[k][m]) / (delta);
       } else {
-	Ey = (Uj[k][m-1] - Uj[k][m+1]) / (2*delta);
+    Ey = (U[k][m-1] - U[k][m+1]) / (2*delta);
       }
       eFile << x << "\t" << y << "\t" << Ex << "\t" << Ey << "\n";
     }
   }
   eFile.close();
-  
+  vecsort("eAnalytical2", 300);
   QProcess::startDetached("./Eplotter.sh eAnalytical2" );
   
 }
