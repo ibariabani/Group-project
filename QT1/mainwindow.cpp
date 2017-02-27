@@ -78,13 +78,20 @@ void MainWindow::on_Problem1_clicked()
     Bconds::Problem1(delta, GS);
     QProcess::startDetached("./TempPlotter.sh vAnalytical1");
     sleep(5);
-    QImage image("vAnalytical1.png");
 
+    QImage image("vAnalytical1.png");
             QGraphicsScene* scene = new QGraphicsScene();
             QGraphicsPixmapItem* Item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
             QGraphicsView* Display= new QGraphicsView(scene);
                         scene->addItem(Item);
                         Display->show();
+
+    QImage imageZ("eAnalytical1.png");
+            QGraphicsScene* sceneZ = new QGraphicsScene();
+            QGraphicsPixmapItem* ItemZ = new QGraphicsPixmapItem(QPixmap::fromImage(imageZ));
+            QGraphicsView* DisplayZ = new QGraphicsView(sceneZ);
+                        sceneZ->addItem(ItemZ);
+                        DisplayZ->show();
 }
 
 void MainWindow::on_Problem2_clicked()
@@ -104,14 +111,21 @@ void MainWindow::on_Problem2_clicked()
     Bconds::Problem2(delta, GS);
     QProcess::startDetached("./TempPlotter.sh vAnalytical2");
     sleep(5);
+
     QImage image("vAnalytical2.png");
-
-
     QGraphicsScene* scene = new QGraphicsScene();
     QGraphicsPixmapItem* Item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
     QGraphicsView* Display1= new QGraphicsView(scene);
                 scene->addItem(Item);
                 Display1->show();  
+
+    QImage imageY("eAnalytical2.png");
+    QGraphicsScene* sceneY = new QGraphicsScene();
+    QGraphicsPixmapItem* ItemY = new QGraphicsPixmapItem(QPixmap::fromImage(imageY));
+    QGraphicsView* DisplayY = new QGraphicsView(sceneY);
+                sceneY->addItem(ItemY);
+                DisplayY->show();
+
 }
 
 void MainWindow::on_red_clicked()
@@ -249,7 +263,7 @@ void MainWindow::on_Jacobi_clicked(bool checked)
 
  QProcess::startDetached("./TempPlotter.sh vJacobi" );
  vecsort("eJacobi", Grid);
- QProcess::startDetached("./Eplotter.sh eJacobi " );
+ QProcess::startDetached("./Eplotter.sh eJacobi" );
   sleep(5);
 
 

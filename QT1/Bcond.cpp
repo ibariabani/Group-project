@@ -60,16 +60,16 @@ file.open("vAnalytical1");
       r = sqrt(pow(x,2) + pow(y,2));    //Calculates the radius of each point
 
       if( (r<=r1)){          //If the point lies outwith the larger sphere, or within the inner sphere, set=0
-        V=0;
+        U[i][j]=0;
       }
       else if(r>=r2) {
-          V=V0;
+          U[i][j]=V0;
       }
       else{                       //Otherwise use the derived analytical solution
-        V = ((V0/log(r2/r1))*log(r)) - ((V0*log(r1))/(log(r2/r1)));
+        U[i][j] = ((V0/log(r2/r1))*log(r)) - ((V0*log(r1))/(log(r2/r1)));
       }
 
-      file << x << "    " << y << "    " << V << endl;    //Outputs data to the file
+      file << x << "    " << y << "    " << U[i][j] << endl;    //Outputs data to the file
       }
    file<<"\n";
  }
@@ -98,6 +98,7 @@ ofstream eFile("eAnalytical1");
   }
   eFile.close();
   
+  vecsort("eAnalytical1", ItMax);
   QProcess::startDetached("./Eplotter.sh eAnalytical1 " );
  }
 
@@ -162,19 +163,19 @@ void Bconds::Problem2(double a, double b){
      y=(j-(ItMax/2))*delta;
      r = sqrt(pow(x,2) + pow(y,2));  //Calcs radius of each point
 
-     if(sr>r){                             //If point within the sphere set to ground
-       V=0;
+     if(r<=sr){                             //If point within the sphere set to ground
+       U[i][j]=0;
      }
-     else if(r>d && x>0){
-         V=-V0;
+     else if(r>=d && x>0){
+         U[i][j]=-V0;
      }
-     else if(r>d && x<0){
-         V=V0;
+     else if(r>=d && x<0){
+         U[i][j]=V0;
      }
      else{                                 //Otherwise use the analytical solution
-       V = -(V0)*(2*x/d)*(1 - (pow(sr,3)/pow(r,3)));
+       U[i][j] = -(V0)*(2*x/d)*(1 - (pow(sr,3)/pow(r,3)));
      }
-     file << x << "    " << y << "    " << V << endl;  //Outputs the data to file
+     file << x << "    " << y << "    " << U[i][j] << endl;  //Outputs the data to file
    }
    file<<"\n";                            //insert vertical tab
  }
@@ -203,7 +204,8 @@ void Bconds::Problem2(double a, double b){
     }
   }
   eFile.close();
-  vecsort("eAnalytical2", 300);
+
+  vecsort("eAnalytical2", ItMax);
   QProcess::startDetached("./Eplotter.sh eAnalytical2" );
   
 }
