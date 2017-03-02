@@ -18,7 +18,6 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-     void updatetext(QString string);
 
 private slots:
 

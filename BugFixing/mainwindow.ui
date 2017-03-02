@@ -1284,6 +1284,16 @@
      </property>
     </widget>
    </widget>
+   <widget class="QTextBrowser" name="OutputBox">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>410</y>
+      <width>341</width>
+      <height>151</height>
+     </rect>
+    </property>
+   </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
@@ -1505,16 +1515,6 @@
      </rect>
     </property>
    </widget>
-   <widget class="QTextEdit" name="OutputBox">
-    <property name="geometry">
-     <rect>
-      <x>610</x>
-      <y>390</y>
-      <width>341</width>
-      <height>211</height>
-     </rect>
-    </property>
-   </widget>
    <zorder>groupBox_3</zorder>
    <zorder>groupBox_2</zorder>
    <zorder>groupBox</zorder>
@@ -1530,6 +1530,7 @@
    <zorder>Linegroup</zorder>
    <zorder>Rectanglegroup</zorder>
    <zorder>OtherColourBox</zorder>
+   <zorder>OutputBox</zorder>
    <zorder>pushButton</zorder>
    <zorder>line_2</zorder>
    <zorder>line_3</zorder>
@@ -1543,7 +1544,6 @@
    <zorder>line_9</zorder>
    <zorder>label_6</zorder>
    <zorder>Dimen</zorder>
-   <zorder>OutputBox</zorder>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">

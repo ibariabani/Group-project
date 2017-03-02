@@ -19,14 +19,12 @@
 #include"sortvec.h"
 
 using namespace std;
-
 using std::chrono::steady_clock;
 using std::chrono::time_point;
 using std::chrono::duration_cast;
 using std::chrono::milliseconds;
 
 double  ErrTol=0.01, radius=0, cx=0, cy=0, l1x=0, l1y=0, l2x=0, l2y=0, tlx=0, tly=0, brx=0, bry=0;
-bool p1=false,p2=false,p3=false;
 QColor colour;
 int shape=0, GridSize=100;
 double Bconds::Dimen=3;
@@ -39,28 +37,22 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 }
 
-
-void MainWindow::on_deltaVal_valueChanged(double arg1)
-{
+//THE FOLLOWING THREE FUNCTIONS CHANGE VALUES WHEN USER CHANGES THEM
+void MainWindow::on_deltaVal_valueChanged(double arg1){
     GridSize=int(arg1);
-
 }
-
-void MainWindow::on_Dimen_valueChanged(double arg1)
-{
+void MainWindow::on_Dimen_valueChanged(double arg1){
     Bconds::Dimen=arg1;
     ui->groupBox_3->setEnabled(true);
 }
-
-
-void MainWindow::on_ErrTol_valueChanged(double arg1)
-{
+void MainWindow::on_ErrTol_valueChanged(double arg1){
     ErrTol=arg1;
-   }
+}
 
 
-void MainWindow::on_Problem0_clicked()
-{    
+
+//THE FOLLOWING 3 FUNCTIONS RUN DIFFERENT THINGS DEPENDING ON PROBLEM CHOSEN
+void MainWindow::on_Problem0_clicked(){    
     ui->label_2->setEnabled(false);
     ui->Circlegroup->setEnabled(false);
     ui->Rectanglegroup->setEnabled(false);
@@ -74,8 +66,6 @@ void MainWindow::on_Problem0_clicked()
     Bconds::Problem0(GridSize);
     QProcess::startDetached("./TempPlotter.sh vAnalytical1");
     sleep(5);
-
-    updatetext("Problem 0 done.");
 
     QImage image("vAnalytical1.png");
             QGraphicsScene* scene = new QGraphicsScene();
@@ -92,8 +82,7 @@ void MainWindow::on_Problem0_clicked()
                         DisplayZ->show();
 }
 
-void MainWindow::on_Problem1_clicked()
-{
+void MainWindow::on_Problem1_clicked(){
     ui->label_2->setEnabled(false);
     ui->Circlegroup->setEnabled(false);
     ui->Rectanglegroup->setEnabled(false);
@@ -108,8 +97,6 @@ void MainWindow::on_Problem1_clicked()
     Bconds::Problem1(GridSize);
     QProcess::startDetached("./TempPlotter.sh vAnalytical2");
     sleep(5);
-
-    updatetext("Problem 1 done.");
 
     QImage image("vAnalytical2.png");
     QGraphicsScene* scene = new QGraphicsScene();
@@ -127,38 +114,12 @@ void MainWindow::on_Problem1_clicked()
 
 }
 
-void MainWindow::on_red_clicked()
-{
-    colour = Qt::red;
-    ui->groupBox_4->setEnabled(true);
-    ui->label_2->setEnabled(true);
-}
-
-void MainWindow::on_green_clicked()
-{
-    colour = Qt::green;
-    ui->groupBox_4->setEnabled(true);
-    ui->label_2->setEnabled(true);
-}
-
-void MainWindow::on_black_clicked()
-{
-    colour = Qt::black;
-    ui->groupBox_4->setEnabled(true);
-    ui->label_2->setEnabled(true);
-}
-
-void MainWindow::on_UD_clicked()
-{
+void MainWindow::on_UD_clicked(){
     radius=0, cx=0, cy=0, l1x=0, l1y=0, l2x=0, l2y=0, tlx=0, tly=0, brx=0, bry=0;
     QPixmap pixmap(QSize(GridSize,GridSize));
     QPainter painter(&pixmap);
     pixmap.fill(Qt::white);
     pixmap.save("test1.png", "PNG", 100);
-
-
-    //activate options
-
     ui->Jacobi->setEnabled(false);
     ui->GaussSeidell->setEnabled(false);
     ui->SOR->setEnabled(false);
@@ -167,8 +128,9 @@ void MainWindow::on_UD_clicked()
 }
 
 
-void MainWindow::on_GaussSeidell_clicked()
-{
+//THE FOLLOWING FUNCTIONS RUN THE THREE NUMERICAL METHODS ON THE BOUNDARY CONDITION INFO
+void MainWindow::on_GaussSeidell_clicked(){
+
     Methods::delta=Bconds::delta;
     for(int i=0;i<=(GridSize);i++){
          for(int j=0;j<=(GridSize);j++){
@@ -179,24 +141,10 @@ void MainWindow::on_GaussSeidell_clicked()
     }
 
  time_point<steady_clock> Gstart = steady_clock::now(); //declaring start time
-
- Methods::Gauss(GridSize,ErrTol);
-
+ Methods::Gauss(GridSize,ErrTol);                       //Runs the Gauss Siedel method
  time_point<steady_clock> Gend = steady_clock::now(); //end time
- updatetext("Gauss-Seidel method done.");
  milliseconds Gtime = duration_cast<milliseconds>(Gend-Gstart); //calculate time difference
-
- QString string1 = "The Gauss-Seidel method took ";
- QString string2 = QString::number(Gtime.count());
- QString string3 = "ms and ";
- QString string4 = QString::number(Methods::Git);
- QString string5 = " iterations to converge to the desired accuracy.";
- string1.append(string2);
- string1.append(string3);
- string1.append(string4);
- string1.append(string5);
- updatetext(string1);
- Methods::Git = 0;
+ cout << "The Gauss-Seidell method took " << Gtime.count() << "ms to solve the problem." << endl;
 
  QProcess::startDetached("./TempPlotter.sh vGS" );
  vecsort("eGS", GridSize);
@@ -218,9 +166,9 @@ void MainWindow::on_GaussSeidell_clicked()
              Display2->show();
 }
 
-void MainWindow::on_SOR_clicked()
-{
-    Methods::delta=Bconds::delta;
+void MainWindow::on_SOR_clicked(){
+
+    Methods::delta=Bconds::delta;      //Passes the delta value and array of values to Methods
     for(int i=0;i<=(GridSize);i++){
          for(int j=0;j<=(GridSize);j++){
        Methods::U[i][j]=Bconds::U[i][j];
@@ -233,19 +181,8 @@ void MainWindow::on_SOR_clicked()
  Methods::SOR(GridSize,ErrTol);
 
  time_point<steady_clock> Send = steady_clock::now(); //end time
- updatetext("SOR method done.");
  milliseconds Stime = duration_cast<milliseconds>(Send-Sstart); //calculate time difference
- QString string1 = "The SOR method took ";
- QString string2 = QString::number(Stime.count());
- QString string3 = "ms and ";
- QString string4 = QString::number(Methods::n);
- QString string5 = " iterations to converge to the desired accuracy.";
- string1.append(string2);
- string1.append(string3);
- string1.append(string4);
- string1.append(string5);
- updatetext(string1);
- Methods::n = 0;
+ cout << "The SOR method took " << Stime.count() << "ms to solve the problem." << endl;
 
  QProcess::startDetached("./TempPlotter.sh vSOR" );
  vecsort("eSOR", GridSize);
@@ -284,19 +221,8 @@ void MainWindow::on_Jacobi_clicked(bool checked)
  Methods::Jacobi(GridSize,ErrTol);
 
  time_point<steady_clock> Jend = steady_clock::now(); //end time
- updatetext("Jacobi method done.");
  milliseconds Jtime = duration_cast<milliseconds>(Jend-Jstart); //calculate time difference
- QString string1 = "The Jacobi method took ";
- QString string2 = QString::number(Jtime.count());
- QString string3 = "ms and ";
- QString string4 = QString::number(Methods::it);
- QString string5 = " iterations to converge to the desired accuracy.";
- string1.append(string2);
- string1.append(string3);
- string1.append(string4);
- string1.append(string5);
- updatetext(string1);
- Methods::it = 0;
+ cout << "The Jacobi method took " << Jtime.count() << "ms to solve the problem." << endl;
 
  QProcess::startDetached("./TempPlotter.sh vJacobi" );
  vecsort("eJacobi", GridSize);
@@ -317,6 +243,30 @@ void MainWindow::on_Jacobi_clicked(bool checked)
  QGraphicsView* Display4= new QGraphicsView(scene);
              scene->addItem(Item);
              Display4->show();
+}
+
+
+
+
+void MainWindow::on_red_clicked()
+{
+    colour = Qt::red;
+    ui->groupBox_4->setEnabled(true);
+    ui->label_2->setEnabled(true);
+}
+
+void MainWindow::on_green_clicked()
+{
+    colour = Qt::green;
+    ui->groupBox_4->setEnabled(true);
+    ui->label_2->setEnabled(true);
+}
+
+void MainWindow::on_black_clicked()
+{
+    colour = Qt::black;
+    ui->groupBox_4->setEnabled(true);
+    ui->label_2->setEnabled(true);
 }
 
 void MainWindow::on_circle_clicked()
@@ -351,7 +301,7 @@ void MainWindow::on_rectangle_clicked()
 
 void MainWindow::on_HorizLinear_valueChanged(double arg1)
 {
-    cx =  (GridSize)-arg1;
+    cx = arg1;
 }
 
 void MainWindow::on_VertLinear_valueChanged(double arg1)
@@ -366,7 +316,7 @@ void MainWindow::on_VertLinear_3_valueChanged(double arg1)
 
 void MainWindow::on_HorizLinear_2_valueChanged(double arg1)
 {
-    l1x =  (GridSize)-arg1;
+    l1x = arg1;
 }
 
 void MainWindow::on_VertLinear_2_valueChanged(double arg1)
@@ -376,7 +326,7 @@ void MainWindow::on_VertLinear_2_valueChanged(double arg1)
 
 void MainWindow::on_HorizLinear_3_valueChanged(double arg1)
 {
-    l2x =  (GridSize)-arg1;
+    l2x = arg1;
 }
 
 void MainWindow::on_VertLinear_4_valueChanged(double arg1)
@@ -386,7 +336,7 @@ void MainWindow::on_VertLinear_4_valueChanged(double arg1)
 
 void MainWindow::on_HorizLinear_4_valueChanged(double arg1)
 {
-    tlx =  (GridSize)-arg1;
+    tlx =  arg1;
 }
 
 void MainWindow::on_VertLinear_6_valueChanged(double arg1)
@@ -396,7 +346,7 @@ void MainWindow::on_VertLinear_6_valueChanged(double arg1)
 
 void MainWindow::on_HorizLinear_5_valueChanged(double arg1)
 {
-    brx = (GridSize)- arg1;
+    brx = arg1;
 }
 
 void MainWindow::on_VertLinear_5_valueChanged(double arg1)
@@ -472,43 +422,35 @@ void MainWindow::on_pushButton_clicked()
     ui->pushButton->setEnabled(false);
 }
 
+
+//THE FOLLOWIN SET OF FUNCTIONS SET A USER DEFINED VALUE FOR VOLTAGE-----------------------------------------------
  void MainWindow::on_Other_clicked()
  {
      ui->OtherColourBox->setEnabled(true);
      ui->groupBox_4->setEnabled(true);
  }
 
- void MainWindow::on_spinBox_valueChanged(int arg1)
- {
+ void MainWindow::on_spinBox_valueChanged(int arg1){
      Bconds::rval = arg1;
  }
 
- void MainWindow::on_spinBox_2_valueChanged(int arg1)
- {
+ void MainWindow::on_spinBox_2_valueChanged(int arg1){
      Bconds::gval = arg1;
  }
 
- void MainWindow::on_spinBox_3_valueChanged(int arg1)
- {
+ void MainWindow::on_spinBox_3_valueChanged(int arg1){
      Bconds::bval = arg1;
  }
 
- void MainWindow::on_doubleSpinBox_valueChanged(double arg1)
- {
+ void MainWindow::on_doubleSpinBox_valueChanged(double arg1){
      Bconds::UV = arg1;
  }
 
- void MainWindow::on_SetColour_clicked()
- {
+ void MainWindow::on_SetColour_clicked(){
      colour = QColor(Bconds::rval,Bconds::gval,Bconds::bval,255);
      ui->OtherColourBox->setEnabled(false);
  }
-
- void MainWindow::updatetext(QString string)  //needs to be run whenever you want to output text
-  {
-     ui->OutputBox->append(string);    //adds string to textbox
-  }
-
+//--------------------------------------------------------------------------------------------------------------------
  MainWindow::~MainWindow()
  {
      delete ui;

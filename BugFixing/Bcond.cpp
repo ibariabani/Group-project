@@ -192,13 +192,15 @@ void Bconds::Problem1(int GridSize){
 }
 
 void Bconds::ud(int GridSize){
+    double Range=Bconds::Dimen;
+    delta=Range/GridSize;
     double V0=10;
     int j2;
     QImage img( "test1.png" );
     h=img.height();
     w=img.width();
 
-    //cout << "rval " << rval << " gval " << gval << " bval " << bval << " UV " << UV <<endl;
+    cout << "rval " << rval << " gval " << gval << " bval " << bval << " UV " << UV <<endl;
 
     if ( false == img.isNull() )
     {
