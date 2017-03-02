@@ -67,6 +67,8 @@ void MainWindow::on_Problem0_clicked(){
     QProcess::startDetached("./TempPlotter.sh vAnalytical1");
     sleep(5);
 
+    updatetext("Problem 0 done.");
+
     QImage image("vAnalytical1.png");
             QGraphicsScene* scene = new QGraphicsScene();
             QGraphicsPixmapItem* Item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
@@ -97,6 +99,8 @@ void MainWindow::on_Problem1_clicked(){
     Bconds::Problem1(GridSize);
     QProcess::startDetached("./TempPlotter.sh vAnalytical2");
     sleep(5);
+
+    updatetext("Problem 1 done.");
 
     QImage image("vAnalytical2.png");
     QGraphicsScene* scene = new QGraphicsScene();
@@ -143,8 +147,20 @@ void MainWindow::on_GaussSeidell_clicked(){
  time_point<steady_clock> Gstart = steady_clock::now(); //declaring start time
  Methods::Gauss(GridSize,ErrTol);                       //Runs the Gauss Siedel method
  time_point<steady_clock> Gend = steady_clock::now(); //end time
+ updatetext("Gauss-Seidel method done.");
  milliseconds Gtime = duration_cast<milliseconds>(Gend-Gstart); //calculate time difference
- cout << "The Gauss-Seidell method took " << Gtime.count() << "ms to solve the problem." << endl;
+
+ QString string1 = "The Gauss-Seidel method took ";
+ QString string2 = QString::number(Gtime.count());
+ QString string3 = "ms and ";
+ QString string4 = QString::number(Methods::Git);
+ QString string5 = " iterations to converge to the desired accuracy.";
+ string1.append(string2);
+ string1.append(string3);
+ string1.append(string4);
+ string1.append(string5);
+ updatetext(string1);
+ Methods::Git = 0;
 
  QProcess::startDetached("./TempPlotter.sh vGS" );
  vecsort("eGS", GridSize);
@@ -181,8 +197,19 @@ void MainWindow::on_SOR_clicked(){
  Methods::SOR(GridSize,ErrTol);
 
  time_point<steady_clock> Send = steady_clock::now(); //end time
+ updatetext("SOR method done.");
  milliseconds Stime = duration_cast<milliseconds>(Send-Sstart); //calculate time difference
- cout << "The SOR method took " << Stime.count() << "ms to solve the problem." << endl;
+ QString string1 = "The SOR method took ";
+ QString string2 = QString::number(Stime.count());
+ QString string3 = "ms and ";
+ QString string4 = QString::number(Methods::n);
+ QString string5 = " iterations to converge to the desired accuracy.";
+ string1.append(string2);
+ string1.append(string3);
+ string1.append(string4);
+ string1.append(string5);
+ updatetext(string1);
+ Methods::n = 0;
 
  QProcess::startDetached("./TempPlotter.sh vSOR" );
  vecsort("eSOR", GridSize);
@@ -221,8 +248,19 @@ void MainWindow::on_Jacobi_clicked(bool checked)
  Methods::Jacobi(GridSize,ErrTol);
 
  time_point<steady_clock> Jend = steady_clock::now(); //end time
+ updatetext("Jacobi method done.");
  milliseconds Jtime = duration_cast<milliseconds>(Jend-Jstart); //calculate time difference
- cout << "The Jacobi method took " << Jtime.count() << "ms to solve the problem." << endl;
+ QString string1 = "The Jacobi method took ";
+ QString string2 = QString::number(Jtime.count());
+ QString string3 = "ms and ";
+ QString string4 = QString::number(Methods::it);
+ QString string5 = " iterations to converge to the desired accuracy.";
+ string1.append(string2);
+ string1.append(string3);
+ string1.append(string4);
+ string1.append(string5);
+ updatetext(string1);
+ Methods::it = 0;
 
  QProcess::startDetached("./TempPlotter.sh vJacobi" );
  vecsort("eJacobi", GridSize);
@@ -450,6 +488,11 @@ void MainWindow::on_pushButton_clicked()
      colour = QColor(Bconds::rval,Bconds::gval,Bconds::bval,255);
      ui->OtherColourBox->setEnabled(false);
  }
+
+ void MainWindow::updatetext(QString string)
+  {
+     ui->OutputBox->append(string);
+  }
 //--------------------------------------------------------------------------------------------------------------------
  MainWindow::~MainWindow()
  {
