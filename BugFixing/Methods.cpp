@@ -8,15 +8,13 @@ double Methods::delta;
 
 double UNew[1000][1000];                                        //Declare large array outside stack
 double Uj[1000][1000];
-int Methods::it;
-int Methods::Git;
-int Methods::n;
+
 
 
 
 void Methods::Jacobi(int GridSize, double c){
 
- double x=0,y=0;//Declares all neccesary variables
+ double x=0,y=0,it=0;//Declares all neccesary variables
  int i=0,j=0;
  double ErrTol=c;
  double Ex,Ey, Div=1000, Divt=0;
@@ -89,7 +87,7 @@ void Methods::Jacobi(int GridSize, double c){
     Div/=(delta*delta*GridSize*GridSize);
 }
   
-  //cout<<"The Jacobi Method took " << it <<" iterations to converge"<<endl;  //Outputs the number of iterations
+  cout<<"The Jacobi Method took " << it <<" iterations to converge"<<endl;  //Outputs the number of iterations 
 
   ofstream vfile;               //Opens file to write output data to
   vfile.open("vJacobi");
@@ -142,7 +140,7 @@ void Methods::Gauss(int GridSize, double c){
   double Ug[1000][1000];
   double GSErrTol=c;
   double x=0,y=0;
-  int i=0,j=0;      //Declares all neccessary variables
+  int i=0,j=0,Git=0;      //Declares all neccessary variables
   double Ex,Ey, Div=1000, Divt=0;
 
 
@@ -209,7 +207,7 @@ void Methods::Gauss(int GridSize, double c){
 
 
  
-  //cout<< "Gauss Siedell took "<<Git<<" iterations to converge"<< endl;  //Outputs
+  cout<< "Gauss Siedell took "<<Git<<" iterations to converge"<< endl;  //Outputs 
 
 
 
@@ -265,7 +263,7 @@ void Methods::Gauss(int GridSize, double c){
 void Methods::SOR(int GridSize, double c){
    double Us[1000][1000];
    double resid=0,x=0,y=0, omega=0;
-  int i=0,j=0;       //PDE coefficients set to solve Poisson's equation as it is for this potential problem
+  int n=0,i=0,j=0;       //PDE coefficients set to solve Poisson's equation as it is for this potential problem
   double ErrTol=c;
   double r_jac=cos(3.14159265359/(GridSize+1));
   double Ex,Ey,z, Div=1000, Divt=0;
@@ -350,7 +348,7 @@ cout<<delta<<endl;
    }
 
 
-   //cout<<"The SOR method took " << n << " iterations to converge to the desired accuracy"<<endl;      //Outputs iterations required
+   cout<<"The SOR method took " << n << " iterations to converge to the desired accuracy"<<endl;      //Outputs iterations required
 
     
   ofstream file("vSOR");          //output the result to a file called "u.dat"

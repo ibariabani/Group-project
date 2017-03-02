@@ -21,10 +21,6 @@ static double c;
 static double delta;
 static int GridSize;
 static bool B[1000][1000];
-static int it;
-static int Git;
-static int n;
-
 
 
   };
