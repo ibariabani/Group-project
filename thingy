@@ -1,0 +1,19 @@
+ for (int j=0; j<=ItMax; j++) {
+      for (int l=0; l<=ItMax; l++) {
+	if (B[j][l]==false) {
+	  Divt = -2*Uj[j][l];
+	  if (j == ItMax) Divt += Uj[j][l];      //If at j=MAX boundary
+	  else Divt += Uj[j+1][l];         
+	  if (j == 0) Divt += Uj[j][l];          //If at j=0 boundary
+	  else Divt += Uj[j-1][l];
+	  
+	  Divt += -2*Uj[j][l];
+	  if (l == ItMax) Divt += Uj[j][l];      //if at l=MAX boundary
+	  else Divt += Uj[j][l+1];
+	  if (l == 0) Divt += Uj[j][l];          //if at l=0 boundary
+	  else Divt += Uj[j][l-1];
+	  
+	  Div += fabs(Divt);
+	}
+      }
+    }
