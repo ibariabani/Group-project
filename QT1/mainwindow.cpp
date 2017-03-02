@@ -44,10 +44,10 @@ void MainWindow::on_deltaVal_valueChanged(double arg1)
 {
     delta=arg1;
     if (p1==true){
-        on_Problem1_clicked();
+        on_Problem0_clicked();
     }
     else if (p2==true){
-        on_Problem2_clicked();
+        on_Problem1_clicked();
     }
     else if (p3==true){
         on_UD_clicked();
@@ -61,7 +61,7 @@ void MainWindow::on_ErrTol_valueChanged(double arg1)
    }
 
 
-void MainWindow::on_Problem1_clicked()
+void MainWindow::on_Problem0_clicked()
 {    
     ui->label_2->setEnabled(false);
     ui->Circlegroup->setEnabled(false);
@@ -75,7 +75,7 @@ void MainWindow::on_Problem1_clicked()
         p1=true;
         p2=false;
         p3=false;
-    Bconds::Problem1(delta, GS);
+    Bconds::Problem0(delta, GS);
     QProcess::startDetached("./TempPlotter.sh vAnalytical1");
     sleep(5);
 
@@ -94,7 +94,7 @@ void MainWindow::on_Problem1_clicked()
                         DisplayZ->show();
 }
 
-void MainWindow::on_Problem2_clicked()
+void MainWindow::on_Problem1_clicked()
 {
     ui->label_2->setEnabled(false);
     ui->Circlegroup->setEnabled(false);
@@ -108,7 +108,7 @@ void MainWindow::on_Problem2_clicked()
     p1=false;
     p2=true;
     p3=false;
-    Bconds::Problem2(delta, GS);
+    Bconds::Problem1(delta, GS);
     QProcess::startDetached("./TempPlotter.sh vAnalytical2");
     sleep(5);
 
@@ -322,7 +322,7 @@ void MainWindow::on_rectangle_clicked()
 
 void MainWindow::on_HorizLinear_valueChanged(double arg1)
 {
-    cx = arg1;
+    cx =  (GS/delta)-arg1;
 }
 
 void MainWindow::on_VertLinear_valueChanged(double arg1)
@@ -337,7 +337,7 @@ void MainWindow::on_VertLinear_3_valueChanged(double arg1)
 
 void MainWindow::on_HorizLinear_2_valueChanged(double arg1)
 {
-    l1x = arg1;
+    l1x =  (GS/delta)-arg1;
 }
 
 void MainWindow::on_VertLinear_2_valueChanged(double arg1)
@@ -347,7 +347,7 @@ void MainWindow::on_VertLinear_2_valueChanged(double arg1)
 
 void MainWindow::on_HorizLinear_3_valueChanged(double arg1)
 {
-    l2x = arg1;
+    l2x =  (GS/delta)-arg1;
 }
 
 void MainWindow::on_VertLinear_4_valueChanged(double arg1)
@@ -357,7 +357,7 @@ void MainWindow::on_VertLinear_4_valueChanged(double arg1)
 
 void MainWindow::on_HorizLinear_4_valueChanged(double arg1)
 {
-    tlx = arg1;
+    tlx =  (GS/delta)-arg1;
 }
 
 void MainWindow::on_VertLinear_6_valueChanged(double arg1)
@@ -367,7 +367,7 @@ void MainWindow::on_VertLinear_6_valueChanged(double arg1)
 
 void MainWindow::on_HorizLinear_5_valueChanged(double arg1)
 {
-    brx = arg1;
+    brx = (GS/delta)- arg1;
 }
 
 void MainWindow::on_VertLinear_5_valueChanged(double arg1)

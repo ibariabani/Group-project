@@ -57,8 +57,8 @@ void vecsort(char* name, int size) {
       n++;
     }
     
-    j = floor( (x-xmin)/delta + 0.5 ); //check if not work
-    l = floor( (y-ymin)/delta + 0.5 ); //check if not work
+    j = (int) floor( (x-xmin)/delta + 0.5 ); //check if not work
+    l = (int) floor( (y-ymin)/delta + 0.5 ); //check if not work
 
     mag = 0;
     exn = 0;
@@ -73,7 +73,7 @@ void vecsort(char* name, int size) {
     }
 
     if (mag >= magav/10) {
-      if ( !(j % interval) && !(l % interval) ) //check if not work
+      if ( !(j%interval) && !(l%interval) ) //check if not work
         eSort << x << "\t" << y << "\t" << exn << "\t" << eyn << "\t" << mag << endl;
 
     }

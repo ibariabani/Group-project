@@ -21,9 +21,9 @@ public:
 
 private slots:
 
-    void on_Problem1_clicked();
+    void on_Problem0_clicked();
 
-    void on_Problem2_clicked();
+    void on_Problem1_clicked();
 
     void on_GaussSeidell_clicked();
 

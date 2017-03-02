@@ -16,7 +16,7 @@ int Bconds:: gval;
 int Bconds:: bval;
 double Bconds:: UV;
 
-void Bconds::Problem1(double a, double b){
+void Bconds::Problem0(double a, double b){
 
   double GS=b, delta=a,r=0,r1=0.5,r2=1.4, V=0,V0=10,x=0,y=0, Ex, Ey;
   double ItMax=GS/delta;
@@ -103,7 +103,7 @@ ofstream eFile("eAnalytical1");
  }
 
 
-void Bconds::Problem2(double a, double b){
+void Bconds::Problem1(double a, double b){
   double sr=0.5, V0=10, V=0, d=3, x=0,y=0,r=0, Ex, Ey;
   int i=0,j=0;
   double GS=b, delta=a;

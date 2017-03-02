@@ -37,7 +37,3 @@ HEADERS  += mainwindow.h \
     sortvec.h
 
 FORMS    += mainwindow.ui
-
-DISTFILES += \
-    TempPlotter.sh \
-    Eplotter.sh

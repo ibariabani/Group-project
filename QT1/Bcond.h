@@ -8,8 +8,8 @@
 
 class Bconds{
 public:
-static void Problem1 (double a, double b);
-static void Problem2(double a, double b);
+static void Problem0(double a, double b);
+static void Problem1(double a, double b);
 static void ud(double a, double b);
 static double U[1000][1000];
 static double a,b;
