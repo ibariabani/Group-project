@@ -96,6 +96,8 @@ private slots:
 
     void on_V0Box_valueChanged(double arg1);
 
+    void on_Problem2_2_clicked();
+
 private:
     Ui::MainWindow *ui;
     QPixmap image;

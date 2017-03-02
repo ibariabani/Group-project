@@ -33,7 +33,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = QTTest1.0.0
-DISTDIR = /home/seb/Documents/Group\ Project/Rough\ Code/CurrentVersion/QT1/.tmp/QTTest1.0.0
+DISTDIR = /home/seb/Documents/Group\ Project/Rough\ Code/CurrentVersion/BugFixing/.tmp/QTTest1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/seb/Qt/5.8/gcc_64/lib
 LIBS          = $(SUBLIBS) -L/home/seb/Qt/5.8/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
@@ -970,7 +970,7 @@ moc_mainwindow.cpp: /home/seb/Qt/5.8/gcc_64/include/QtWidgets/QMainWindow \
 		mainwindow.h \
 		moc_predefs.h \
 		/home/seb/Qt/5.8/gcc_64/bin/moc
-	/home/seb/Qt/5.8/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/seb/Qt/5.8/gcc_64/mkspecs/linux-g++ -I'/home/seb/Documents/Group Project/Rough Code/CurrentVersion/QT1' -I/home/seb/Qt/5.8/gcc_64/include -I/home/seb/Qt/5.8/gcc_64/include/QtWidgets -I/home/seb/Qt/5.8/gcc_64/include/QtGui -I/home/seb/Qt/5.8/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
+	/home/seb/Qt/5.8/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/seb/Qt/5.8/gcc_64/mkspecs/linux-g++ -I'/home/seb/Documents/Group Project/Rough Code/CurrentVersion/BugFixing' -I/home/seb/Qt/5.8/gcc_64/include -I/home/seb/Qt/5.8/gcc_64/include/QtWidgets -I/home/seb/Qt/5.8/gcc_64/include/QtGui -I/home/seb/Qt/5.8/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1655,6 +1655,7 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/home/seb/Qt/5.8/gcc_64/include/QtWidgets/QDoubleSpinBox \
 		/home/seb/Qt/5.8/gcc_64/include/QtWidgets/qspinbox.h \
 		/home/seb/Qt/5.8/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/seb/Qt/5.8/gcc_64/include/QtWidgets/QFrame \
 		/home/seb/Qt/5.8/gcc_64/include/QtWidgets/QGroupBox \
 		/home/seb/Qt/5.8/gcc_64/include/QtWidgets/qgroupbox.h \
 		/home/seb/Qt/5.8/gcc_64/include/QtWidgets/QHeaderView \
@@ -1680,7 +1681,8 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/home/seb/Qt/5.8/gcc_64/include/QtWidgets/QSpinBox \
 		/home/seb/Qt/5.8/gcc_64/include/QtWidgets/QStatusBar \
 		/home/seb/Qt/5.8/gcc_64/include/QtWidgets/qstatusbar.h \
-		/home/seb/Qt/5.8/gcc_64/include/QtWidgets/QTextEdit \
+		/home/seb/Qt/5.8/gcc_64/include/QtWidgets/QTextBrowser \
+		/home/seb/Qt/5.8/gcc_64/include/QtWidgets/qtextbrowser.h \
 		/home/seb/Qt/5.8/gcc_64/include/QtWidgets/qtextedit.h \
 		/home/seb/Qt/5.8/gcc_64/include/QtWidgets/QToolBar \
 		/home/seb/Qt/5.8/gcc_64/include/QtWidgets/qtoolbar.h \
@@ -1778,7 +1780,6 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/home/seb/Qt/5.8/gcc_64/include/QtWidgets/qsystemtrayicon.h \
 		/home/seb/Qt/5.8/gcc_64/include/QtWidgets/qtableview.h \
 		/home/seb/Qt/5.8/gcc_64/include/QtWidgets/qtablewidget.h \
-		/home/seb/Qt/5.8/gcc_64/include/QtWidgets/qtextbrowser.h \
 		/home/seb/Qt/5.8/gcc_64/include/QtWidgets/qtoolbox.h \
 		/home/seb/Qt/5.8/gcc_64/include/QtWidgets/qtoolbutton.h \
 		/home/seb/Qt/5.8/gcc_64/include/QtWidgets/qtooltip.h \

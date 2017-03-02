@@ -16,7 +16,7 @@ int Bconds:: gval;
 int Bconds:: bval;
 double Bconds:: UV;
 double Bconds:: delta;
-double Bconds::V0;
+
 
 void Bconds::Problem0(int GridSize){
 

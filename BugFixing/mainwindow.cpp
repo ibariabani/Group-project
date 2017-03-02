@@ -24,9 +24,10 @@ using std::chrono::time_point;
 using std::chrono::duration_cast;
 using std::chrono::milliseconds;
 
-double  ErrTol=0.01, radius=0, cx=0, cy=0, l1x=0, l1y=0, l2x=0, l2y=0, tlx=0, tly=0, brx=0, bry=0;
+double  ErrTol=0.01, radius=0, cx=0, cy=0, l1x=0, l1y=0, l2x=0, l2y=0, tlx=0, tly=0, brx=0, bry=0, Bconds::V0=10;
 QColor colour;
 int shape=0, GridSize=100;
+
 double Bconds::Dimen=3;
 
 
@@ -37,7 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 }
 
-//THE FOLLOWING THREE FUNCTIONS CHANGE VALUES WHEN USER CHANGES THEM
+//THE FOLLOWING THREE FUNCTIONS CHANGE VALUES WHEN USER CHANGES THEM--------------------------------------------------
 void MainWindow::on_deltaVal_valueChanged(double arg1){
     GridSize=int(arg1);
 }
@@ -48,10 +49,10 @@ void MainWindow::on_Dimen_valueChanged(double arg1){
 void MainWindow::on_ErrTol_valueChanged(double arg1){
     ErrTol=arg1;
 }
+//---------------------------------------------------------------------------------------------------------------------
 
 
-
-//THE FOLLOWING 3 FUNCTIONS RUN DIFFERENT THINGS DEPENDING ON PROBLEM CHOSEN
+//THE FOLLOWING 3 FUNCTIONS RUN DIFFERENT THINGS DEPENDING ON PROBLEM CHOSEN-------------------------------------------
 void MainWindow::on_Problem0_clicked(){    
     ui->label_2->setEnabled(false);
     ui->Circlegroup->setEnabled(false);
@@ -96,6 +97,7 @@ void MainWindow::on_Problem1_clicked(){
     ui->Dimen->setEnabled(false);
 
 
+
     Bconds::Problem1(GridSize);
     QProcess::startDetached("./TempPlotter.sh vAnalytical2");
     sleep(5);
@@ -118,6 +120,11 @@ void MainWindow::on_Problem1_clicked(){
 
 }
 
+void MainWindow::on_Problem2_2_clicked()
+{
+
+}
+
 void MainWindow::on_UD_clicked(){
     radius=0, cx=0, cy=0, l1x=0, l1y=0, l2x=0, l2y=0, tlx=0, tly=0, brx=0, bry=0;
     QPixmap pixmap(QSize(GridSize,GridSize));
@@ -130,9 +137,10 @@ void MainWindow::on_UD_clicked(){
     ui->Dimen->setEnabled(true);
     ui->label_6->setEnabled(true);
 }
+//---------------------------------------------------------------------------------------------------------------------
 
 
-//THE FOLLOWING FUNCTIONS RUN THE THREE NUMERICAL METHODS ON THE BOUNDARY CONDITION INFO
+//THE FOLLOWING FUNCTIONS RUN THE THREE NUMERICAL METHODS ON THE BOUNDARY CONDITION INFO-------------------------------
 void MainWindow::on_GaussSeidell_clicked(){
 
     Methods::delta=Bconds::delta;
@@ -503,7 +511,5 @@ void MainWindow::on_pushButton_clicked()
  {
      delete ui;
  }
-
-
 
 
