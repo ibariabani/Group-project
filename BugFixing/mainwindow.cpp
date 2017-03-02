@@ -493,10 +493,17 @@ void MainWindow::on_pushButton_clicked()
   {
      ui->OutputBox->append(string);
   }
+
+ void MainWindow::on_V0Box_valueChanged(double arg1)
+ {
+     Bconds::V0 = arg1;
+ }
 //--------------------------------------------------------------------------------------------------------------------
  MainWindow::~MainWindow()
  {
      delete ui;
  }
+
+
 
 

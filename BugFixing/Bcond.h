@@ -15,7 +15,7 @@ static void ud(int GridSize);
 static double U[1000][1000];
 static bool B[1000][1000];
 static int rval,gval,bval, GridSize;
-static double UV, delta, Dimen;
+static double UV, delta, Dimen, V0;
 
 };
 

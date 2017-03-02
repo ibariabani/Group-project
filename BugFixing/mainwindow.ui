@@ -1444,9 +1444,9 @@
      <string>V:</string>
     </property>
    </widget>
-   <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+   <widget class="QDoubleSpinBox" name="V0Box">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -1461,6 +1461,9 @@
     </property>
     <property name="maximum">
      <double>1000.000000000000000</double>
+    </property>
+    <property name="value">
+     <double>10.000000000000000</double>
     </property>
    </widget>
    <widget class="Line" name="line_9">
@@ -1539,7 +1542,7 @@
    <zorder>Draw_3</zorder>
    <zorder>line_8</zorder>
    <zorder>label_21</zorder>
-   <zorder>doubleSpinBox_2</zorder>
+   <zorder>V0Box</zorder>
    <zorder>line_9</zorder>
    <zorder>label_6</zorder>
    <zorder>Dimen</zorder>

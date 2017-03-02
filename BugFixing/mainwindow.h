@@ -94,6 +94,8 @@ private slots:
 
     void on_Dimen_valueChanged(double arg1);
 
+    void on_V0Box_valueChanged(double arg1);
+
 private:
     Ui::MainWindow *ui;
     QPixmap image;
