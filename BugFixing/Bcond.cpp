@@ -198,7 +198,7 @@ void Bconds::ud(int GridSize){
     h=img.height();
     w=img.width();
 
-    cout << "rval " << rval << " gval " << gval << " bval " << bval << " UV " << UV <<endl;
+    //cout << "rval " << rval << " gval " << gval << " bval " << bval << " UV " << UV <<endl;
 
     if ( false == img.isNull() )
     {
