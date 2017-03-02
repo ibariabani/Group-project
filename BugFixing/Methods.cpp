@@ -274,7 +274,7 @@ void Methods::SOR(int GridSize, double c){
       Us[i][j]=U[i][j];
     }
   }
-
+cout<<delta<<endl;
                                      
    while (Div>ErrTol){            //Iterates whilst the cumalitive error on each full grid iteration is above the tolerance
      Div=0;                                  //resets the error to 0 for each new full grid iteration

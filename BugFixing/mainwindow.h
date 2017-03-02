@@ -91,6 +91,8 @@ private slots:
 
     void on_SetColour_clicked();
 
+    void on_Dimen_valueChanged(double arg1);
+
 private:
     Ui::MainWindow *ui;
     QPixmap image;

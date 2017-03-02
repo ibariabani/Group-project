@@ -28,7 +28,8 @@ using std::chrono::milliseconds;
 double  ErrTol=0.01, radius=0, cx=0, cy=0, l1x=0, l1y=0, l2x=0, l2y=0, tlx=0, tly=0, brx=0, bry=0;
 bool p1=false,p2=false,p3=false;
 QColor colour;
-int shape=0, GridSize;
+int shape=0, GridSize=100;
+double Bconds::Dimen=3;
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -42,6 +43,13 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::on_deltaVal_valueChanged(double arg1)
 {
     GridSize=int(arg1);
+
+}
+
+void MainWindow::on_Dimen_valueChanged(double arg1)
+{
+    Bconds::Dimen=arg1;
+    ui->groupBox_3->setEnabled(true);
 }
 
 
@@ -61,7 +69,7 @@ void MainWindow::on_Problem0_clicked()
     ui->Draw_2->setEnabled(false);
     ui->groupBox_3->setEnabled(false);
     ui->groupBox_4->setEnabled(false);
-
+    ui->Dimen->setEnabled(false);
 
     Bconds::Problem0(GridSize);
     QProcess::startDetached("./TempPlotter.sh vAnalytical1");
@@ -92,6 +100,7 @@ void MainWindow::on_Problem1_clicked()
     ui->Draw_2->setEnabled(false);
     ui->groupBox_3->setEnabled(false);
     ui->groupBox_4->setEnabled(false);
+    ui->Dimen->setEnabled(false);
 
 
     Bconds::Problem1(GridSize);
@@ -143,11 +152,14 @@ void MainWindow::on_UD_clicked()
     pixmap.fill(Qt::white);
     pixmap.save("test1.png", "PNG", 100);
 
+
     //activate options
-    ui->groupBox_3->setEnabled(true);
+
     ui->Jacobi->setEnabled(false);
     ui->GaussSeidell->setEnabled(false);
     ui->SOR->setEnabled(false);
+    ui->Dimen->setEnabled(true);
+    ui->label_6->setEnabled(true);
 }
 
 
@@ -356,7 +368,7 @@ void MainWindow::on_VertLinear_5_valueChanged(double arg1)
 
 void MainWindow::on_Draw_clicked()
 {
-    QPixmap pixmap(QSize(300,300));
+    QPixmap pixmap(QSize(GridSize,GridSize));
     pixmap.load("test1.png");
     QPainter painter(&pixmap);
 
@@ -458,3 +470,5 @@ void MainWindow::on_pushButton_clicked()
  {
      delete ui;
  }
+
+
