@@ -98,6 +98,8 @@ private slots:
 
     void on_Problem2_2_clicked();
 
+    void on_Draw_3_clicked();
+
 private:
     Ui::MainWindow *ui;
     QPixmap image;
