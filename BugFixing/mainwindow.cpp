@@ -452,6 +452,7 @@ void MainWindow::on_Draw_clicked()
     ui->Rectanglegroup->setEnabled(false);
     ui->groupBox_4->setEnabled(false);
     ui->Draw->setEnabled(false);
+    ui->Draw_3->setEnabled(true);
     }
 
 void MainWindow::on_Draw_2_clicked()
@@ -526,3 +527,38 @@ void MainWindow::on_pushButton_clicked()
  }
 
 
+
+void MainWindow::on_Draw_3_clicked()
+{
+    QPixmap pixmap(QSize(GridSize,GridSize));
+    pixmap.load("test1.png");
+    QPainter painter(&pixmap);
+
+    if (shape == 1)
+    {
+        painter.setPen(Qt::white);
+        painter.drawEllipse(QPointF(cx,cy), radius, radius);
+    }
+
+    else if (shape == 2)
+    {
+        painter.setPen(Qt::white);
+        QLineF line(l1x, l1y, l2x, l2y);
+        painter.drawLine(line);
+    }
+
+    else if (shape == 3)
+    {
+        painter.setPen(Qt::white);
+        QRectF rect(QPointF(tlx,tly),QPointF(brx,bry));
+        painter.drawRect(rect);
+    }
+
+    pixmap.save("test1.png", "PNG", 100);
+    QImage image("test1.png");
+    QGraphicsScene* scene = new QGraphicsScene();
+    QGraphicsPixmapItem* Item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
+
+    scene->addItem(Item);
+    ui->graphicsView->setScene(scene);
+}
