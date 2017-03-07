@@ -10,6 +10,7 @@ class Bconds{
 public:
 static void Problem0(int GridSize);
 static void Problem1(int GridSize);
+static void Problem2_2(int GridSize);
 static void ud(int GridSize);
 
 static double U[1000][1000];

@@ -122,6 +122,19 @@ void MainWindow::on_Problem1_clicked(){
 
 void MainWindow::on_Problem2_2_clicked()
 {
+    ui->label_2->setEnabled(false);
+    ui->Circlegroup->setEnabled(false);
+    ui->Rectanglegroup->setEnabled(false);
+    ui->Linegroup->setEnabled(false);
+    ui->Draw->setEnabled(false);
+    ui->Draw_2->setEnabled(false);
+    ui->groupBox_3->setEnabled(false);
+    ui->groupBox_4->setEnabled(false);
+    ui->Dimen->setEnabled(false);
+    ui->Jacobi->setEnabled(true);
+    ui->GaussSeidell->setEnabled(true);
+    ui->SOR->setEnabled(true);
+    Bconds::Problem2_2(GridSize);
 
 }
 

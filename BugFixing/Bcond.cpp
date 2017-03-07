@@ -192,6 +192,53 @@ void Bconds::Problem1(int GridSize){
   
 }
 
+
+void Bconds::Problem2_2(int GridSize){
+     double R1 = 1;
+     double R2 = 1.5;
+     double R3 = 0.15;
+
+     double xmin = -3;
+     double Range=6;
+     double delta=Range/GridSize;
+     Bconds::delta=delta;
+     double ymin = -delta*GridSize/2;
+     double x,y;
+
+     for (int l=0; l<=GridSize; l++) {
+       x = delta*l + xmin;
+       for (int j=0; j<=GridSize; j++) {
+         y = delta*j + ymin;
+
+         if (0) {
+             U[l][j] = V0;
+             B[l][j] = true;
+                             }
+
+         else if (fabs(y) >= R2) { //-V0 boundary
+             U[l][j] = -V0;
+             B[l][j] = true;
+
+         }
+
+         else if ((x*x+y*y <= R3*R3) || ((x-R1)*(x-R1)+y*y <= R3*R3) || ((x+R1)*(x+R1)+y*y <= R3*R3) || ((x-2*R1)*(x-2*R1)+y*y <= R3*R3) || ((x+2*R1)*(x+2*R1)+y*y <= R3*R3)) { //ground boundary
+             U[l][j] = 0;
+             B[l][j] = true;
+
+         }
+
+         else { //not within a boundary
+             U[l][j] = 0;
+             B[l][j] = false;
+
+         }
+         }
+        }
+
+
+
+}
+
 void Bconds::ud(int GridSize){
     double Range=Bconds::Dimen;
     delta=Range/GridSize;
@@ -200,7 +247,7 @@ void Bconds::ud(int GridSize){
     h=img.height();
     w=img.width();
 
-    cout << "rval " << rval << " gval " << gval << " bval " << bval << " UV " << UV <<endl;
+    //cout << "rval " << rval << " gval " << gval << " bval " << bval << " UV " << UV <<endl;
 
     if ( false == img.isNull() )
     {
